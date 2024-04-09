@@ -14,14 +14,17 @@
 ### 시퀀스 다이어그램
 
 - 공연 예매 서비스 이용 시 유저 플로우에 따른 시퀀스
-  <img src="./docs/assets/sequence_diagram-ticketing_performances_process.png" alt="공연 예매 서비스 이용 시 유저 플로우에 따른 시퀀스" />
+
+  <img src="./docs/assets/sequence_diagram-ticketing_performances_process.png" alt="공연 예매 서비스 이용 시 유저 플로우에 따른 시퀀스" width="70%" />
+
 
 - 포인트 서비스 이용 시 유저 플로우에 따른 시퀀스
-  <img src="./docs/assets/sequence_diagram-ticketing_performances_process_payment.png" alt="포인트 서비스 이용 시 유저 플로우에 따른 시퀀스" />
+
+  <img src="./docs/assets/sequence_diagram-ticketing_performances_process_payment.png" alt="포인트 서비스 이용 시 유저 플로우에 따른 시퀀스" width="50%" />
 
 ## ERD
 
-<img src="./docs/assets/ER-Diagram.png" alt="ER Diagram" />
+<img src="./docs/assets/ER-Diagram.png" alt="ER Diagram"  width="80%" />
 
 ## API 명세
 
