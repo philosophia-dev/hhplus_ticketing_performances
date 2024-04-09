@@ -480,7 +480,7 @@
 #### 포인트 충전
 
 <details>
- <summary><code>PATCH</code> <code><b>/cash_charge</b></code> <summary>
+ <summary><code>PATCH</code> <code><b>/cash_charge</b></code> </summary>
 
 포인트를 충전한다.
 
@@ -598,7 +598,7 @@
 #### 좌석 결제
 
 <details>
- <summary><code>PATCH</code> <code><b>/payment_performance_seat</b></code> <summary>
+ <summary><code>PATCH</code> <code><b>/payment_performance_seat</b></code> </summary>
 
 선점한 좌석을 결제한다.
 
