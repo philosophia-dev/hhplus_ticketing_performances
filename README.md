@@ -247,7 +247,7 @@ ver 1
 
 > | name                        | in   | type     | data type | description              |
 > | --------------------------- | ---- | -------- | --------- | ------------------------ |
-> | performance_staging_date_id | path | required | integer   | 특정 공연 일정의 고유 ID |
+> | performance_staging_date_id | path | required | string    | 특정 공연 일정의 고유 ID |
 
 ##### Responses
 
@@ -338,7 +338,7 @@ ver 1
 > | name                  | in   | type     | data type | description                          |
 > | --------------------- | ---- | -------- | --------- | ------------------------------------ |
 > | body                  | body | required | object    |                                      |
-> | » performance_seat_id | body | required | integer   | 특정 공연 일정의 특정 좌석의 고유 ID |
+> | » performance_seat_id | body | required | string    | 특정 공연 일정의 특정 좌석의 고유 ID |
 
 ##### Responses
 
@@ -558,7 +558,7 @@ ver 1
 > | name     | in   | type     | data type | description |
 > | -------- | ---- | -------- | --------- | ----------- |
 > | body     | body | required | object    |             |
-> | » amount | body | required | integer   | 충전할 금액 |
+> | » amount | body | required | number    | 충전할 금액 |
 
 ##### Responses
 
@@ -676,7 +676,7 @@ ver 1
 > | name                  | in   | type     | data type | description                          |
 > | --------------------- | ---- | -------- | --------- | ------------------------------------ |
 > | body                  | body | required | object    |                                      |
-> | » performance_seat_id | body | required | integer   | 특정 공연 일정의 특정 좌석의 고유 ID |
+> | » performance_seat_id | body | required | string    | 특정 공연 일정의 특정 좌석의 고유 ID |
 
 ##### Responses
 
@@ -720,6 +720,6 @@ ver 1
 - `Backend`
   NestJS, Typescript, TypeORM, Jest, JWT
 - `Data`
-  MySQL
+  PostgreSQL
 - `Infra`
   docker, docker-compose
