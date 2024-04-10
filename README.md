@@ -26,19 +26,19 @@
 
 ver 1
 
-- 현단계에서는 우선 Redis를 의도적으로 배제하고 RDBMS만으로 구현, 차후 Message Broker 도입 예정
-- 유저가 로그인한 후, 에매 관련 endpoint로 요청 시도 시 대기열에 들어가는 흐름을 재현하기 위해 대기열 토큰을 발급하는 별도 endpoint를 작성하는 기존 요구사항을 유저 로그인(유저 토큰 발급) → 예매 관련 endpoint에 요청 시도 시 서버 내부에서 유저를 대기열에 등록하고 response로 대기열 데이터 전송하는 플로우로 어레인지
+- ~~현단계에서는 우선 Redis를 의도적으로 배제하고 RDBMS만으로 구현~~
+  대기열 서버와 도메인 서버, 대기열 DB와 도메인 DB를 분리하는 게 더 타당하며, 대기열 DB는 I/O가 잦기 때문에 이 부분에서 퍼포먼스를 발휘할 수 있는 Redis를 도입
+  차후 Message Broker 도입 예정
 - 대기 순서가 올 때까지 client에서 polling을 통해 지속적으로 endpoint에 요청을 보내는 것으로 가정하고, 대기중인 유저에 대해 response로 대기열 데이터 전송 (현재 대기 순서, 대기열 고유 토큰)
 - 같은 유저는 동시에 한 번만 대기열에 등록될 수 있음 (다른 endpoint로 중복 요청 불가)
-- 예매 진행 시 공연 목록 조회 → 좌석 목록 조회 → 좌석 선점 요청 → 좌석 결제 순으로 진행하는 것을 정상 요청으로 간주하며, 이를 검증하기 위해 첫단계 이후의 요청부터는 전단계의 대기열 토큰을 확인함
+- 예매 진행 시 공연 목록 조회 → 좌석 목록 조회 → 좌석 선점 요청 순으로 진행하는 것을 정상 요청으로 간주하며, 이를 검증하기 위해 첫단계 이후의 요청부터는 전단계의 대기열 토큰을 확인함
 - 토큰 유효성 검증 및 만료 조건
   - 각 토큰은 활성화(대기 순서 도래) 후 5분간만 유효함
   - 토큰 발급 시 발급 시간을 저장하고, 활성화 후 활성화 시간 및 만료 시간 저장
   - 예매 진행 시 다음 단계 요청에서 기존에 발급 받은 대기열 토큰을 확인하고 만료, 최종 단계일 시에는 해당 단계에서 만료
   - 페이지, 브라우저 이탈 등의 경우는 client 측에서 감지하고 명시적으로 대기열 토큰 만료 endpoint로 요청을 보내야 함
-  - Application의 로직으로 처리되지 못한 무효 토큰은 일정 시간 간격으로 작동되는 DB의 스케줄러로 삭제
   - 토큰 유효성 검증 플로우
-    <img src="./docs/assets/flow_chart-ticketing_performances_process_queue.png" alt="공연 예매 서비스 이용 시 유저 플로우에 따른 시퀀스" width="80%" />
+    <img src="./docs/assets/flow_chart-ticketing_performances_process_queue.png" alt="토큰 유효성 검증 플로우" width="80%" />
 
 ### 시퀀스 다이어그램
 
@@ -96,6 +96,50 @@ ver 1
 
 ---
 
+#### 대기열 토큰 발급
+
+<details>
+ <summary><code>POST</code> <code><b>/enqueue</b></code></summary>
+
+대기가 필요한 API를 사용하는 데 필요한 대기열 토큰을 발급한다.
+
+##### Headers
+
+> | name          | required | description                                                         |
+> | ------------- | -------- | ------------------------------------------------------------------- |
+> | Authorization | true     | 유저가 로그인 시 발급 받은 접근 토큰<br/>Bearer {USER_ACCESS_TOKEN} |
+
+##### Parameters
+
+> | name               | in   | type     | data type | description     |
+> | ------------------ | ---- | -------- | --------- | --------------- |
+> | body               | body | required | object    |                 |
+> | » request_endpoint | body | required | string    | 요청할 endpoint |
+
+##### Responses
+
+> Status Code **200**
+>
+> ```json
+> {
+>   "queueToken": "{USER_QUEUE_TOKEN}"
+> }
+> ```
+>
+> Status Code **400**
+>
+> ```json
+> {
+>   "message": "<error-message>",
+>   "error": "Bad Request",
+>   "statusCode": 400
+> }
+> ```
+
+</details>
+
+---
+
 #### 공연 목록 조회
 
 <details>
@@ -108,6 +152,7 @@ ver 1
 > | name          | required | description                                                         |
 > | ------------- | -------- | ------------------------------------------------------------------- |
 > | Authorization | true     | 유저가 로그인 시 발급 받은 접근 토큰<br/>Bearer {USER_ACCESS_TOKEN} |
+> | Queue-Token   | true     | 유저가 대기열에 등록하고 받은 토큰<br/>Bearer {USER_QUEUE_TOKEN}    |
 
 ##### Parameters
 
@@ -198,6 +243,7 @@ ver 1
 > | name          | required | description                                                         |
 > | ------------- | -------- | ------------------------------------------------------------------- |
 > | Authorization | true     | 유저가 로그인 시 발급 받은 접근 토큰<br/>Bearer {USER_ACCESS_TOKEN} |
+> | Queue-Token   | true     | 유저가 대기열에 등록하고 받은 토큰<br/>Bearer {USER_QUEUE_TOKEN}    |
 
 ##### Parameters
 
@@ -287,6 +333,7 @@ ver 1
 > | name          | required | description                                                         |
 > | ------------- | -------- | ------------------------------------------------------------------- |
 > | Authorization | true     | 유저가 로그인 시 발급 받은 접근 토큰<br/>Bearer {USER_ACCESS_TOKEN} |
+> | Queue-Token   | true     | 유저가 대기열에 등록하고 받은 토큰<br/>Bearer {USER_QUEUE_TOKEN}    |
 
 ##### Parameters
 
@@ -420,21 +467,6 @@ ver 1
 > }
 > ```
 >
-> Status Code **202**
->
-> 대기열에 존재하지 않는 유저일 경우 새로 대기열에 추가한 후 대기 정보를 반환한다. 이미 대기열에 존재하는 유저일 경우 현재 대기 정보를 반환한다.
->
-> ```json
-> {
->   "message": "Please wait for your order to arrive.",
->   "queue_data": {
->     "id": "{UUID}",
->     "rank": 10
->   },
->   "statusCode": 202
-> }
-> ```
->
 > Status Code **400**
 >
 > ```json
@@ -533,7 +565,6 @@ ver 1
 ##### Responses
 
 > Status Code **201**
-
 > 충전 결과와 함께 충전 후 잔액을 반환한다.
 >
 > ```json
