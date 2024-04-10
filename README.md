@@ -57,7 +57,7 @@ ver 1
 #### 유저 토큰 발급
 
 <details>
- <summary><code>POST</code> <code><b>/signIn</b></code></summary>
+ <summary><code>POST</code> <code><b>/auth/signIn</b></code></summary>
 
 모든 API 요청 헤더에 반드시 포함되어야 하는 유저 토큰을 발급한다.
 (임의로 유저 토큰을 발급하기 위한 기능이기 때문에 만료 시간, Refresh 등에 관한 규칙은 따로 설정하지 않음.)
@@ -97,7 +97,7 @@ ver 1
 #### 대기열 토큰 발급
 
 <details>
- <summary><code>POST</code> <code><b>/enqueue</b></code></summary>
+ <summary><code>POST</code> <code><b>/queue/enqueue</b></code></summary>
 
 대기가 필요한 API를 사용하는 데 필요한 대기열 토큰을 발급한다.
 
@@ -141,7 +141,7 @@ ver 1
 #### 공연 목록 조회
 
 <details>
- <summary><code>GET</code> <code><b>/performaces</b></code> </summary>
+ <summary><code>GET</code> <code><b>/reservation/performaces</b></code> </summary>
 
 공연 전체 목록 및 해당 공연의 일정을 반환한다. 각 일정에는 예매 가능한 좌석의 수를 포함한다.
 
@@ -232,7 +232,7 @@ ver 1
 #### 좌석 목록 조회
 
 <details>
-<summary><code>GET</code> <code><b>/performance_seats/{performance_staging_date_id}</b></code></summary>
+<summary><code>GET</code> <code><b>/reservation/performance_seats/{performance_staging_date_id}</b></code></summary>
 
 특정 공연 일정의 좌석 목록을 조회한다. 각 좌석의 예매 가능 상태를 포함한다.
 
@@ -322,7 +322,7 @@ ver 1
 #### 좌석 선점 요청
 
 <details>
-<summary><code>PATCH</code> <code><b>/take_performance_seat</b></code></summary>
+<summary><code>PATCH</code> <code><b>/reservation/take_performance_seat</b></code></summary>
 
 특정 공연 일정의 특정 좌석을 선점 요청한다.
 
@@ -405,7 +405,7 @@ ver 1
 #### 선점하거나 예매한 좌석 목록 조회
 
 <details>
-<summary><code>GET</code> <code><b>/reserved_performance_seats</b></code></summary>
+<summary><code>GET</code> <code><b>/reservation/reserved_performance_seats</b></code></summary>
 
 유저가 선점하거나 예매한 좌석 목록을 조회한다.
 
@@ -447,14 +447,6 @@ ver 1
 >       }
 >     ]
 >   },
->   "data": [
->     {
->       "id": 1,
->       "seat_number": "1",
->       "price": 70000,
->       "reservation_status": "AVAILABLE"
->     }
->   ],
 >   "queue_data": {
 >     "id": "{UUID}",
 >     "issued_timestamp": 1570543163783,
@@ -492,7 +484,7 @@ ver 1
 #### 포인트 잔액 조회
 
 <details>
-<summary><code>GET</code> <code><b>/cash_balance</b></code></summary>
+<summary><code>GET</code> <code><b>/payment/cash_balance</b></code></summary>
 
 현재 포인트의 잔액을 조회한다.
 
@@ -543,7 +535,7 @@ ver 1
 #### 포인트 충전
 
 <details>
- <summary><code>POST</code> <code><b>/cash_charge</b></code> </summary>
+ <summary><code>POST</code> <code><b>/payment/cash_charge</b></code> </summary>
 
 포인트를 충전한다.
 
@@ -599,7 +591,7 @@ ver 1
 #### 포인트 입출금 내역 조회
 
 <details>
-<summary><code>GET</code> <code><b>/payment_history</b></code></summary>
+<summary><code>GET</code> <code><b>/payment/payment_history</b></code></summary>
 
 포인트의 입출금 내역을 조회한다.
 
@@ -661,7 +653,7 @@ ver 1
 #### 좌석 결제
 
 <details>
- <summary><code>POST</code> <code><b>/payment_performance_seat</b></code> </summary>
+ <summary><code>POST</code> <code><b>/payment/payment_performance_seat</b></code> </summary>
 
 선점한 좌석을 결제한다.
 
