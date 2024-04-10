@@ -17,7 +17,6 @@
 
   <img src="./docs/assets/sequence_diagram-ticketing_performances_process.png" alt="공연 예매 서비스 이용 시 유저 플로우에 따른 시퀀스" width="70%" />
 
-
 - 포인트 서비스 이용 시 유저 플로우에 따른 시퀀스
 
   <img src="./docs/assets/sequence_diagram-ticketing_performances_process_payment.png" alt="포인트 서비스 이용 시 유저 플로우에 따른 시퀀스" width="50%" />
@@ -180,6 +179,7 @@
 ##### Responses
 
 > Status Code **200**
+>
 > 좌석 목록과 함께 대기열 정보를 함께 반환한다.
 >
 > - reservation_status
@@ -208,6 +208,7 @@
 > ```
 >
 > Status Code **202**
+>
 > 대기열에 존재하지 않는 유저일 경우 새로 대기열에 추가한 후 대기 정보를 반환한다. 이미 대기열에 존재하는 유저일 경우 현재 대기 정보를 반환한다.
 >
 > ```json
@@ -289,6 +290,7 @@
 > ```
 >
 > Status Code **202**
+>
 > 대기열에 존재하지 않는 유저일 경우 새로 대기열에 추가한 후 대기 정보를 반환한다. 이미 대기열에 존재하는 유저일 경우 현재 대기 정보를 반환한다.
 >
 > ```json
@@ -346,6 +348,7 @@
 ##### Responses
 
 > Status Code **200**
+>
 > 유저가 선점하거나 예매한 좌석 목록과 함께 대기열 정보를 함께 반환한다.
 >
 > ```json
@@ -389,6 +392,7 @@
 > ```
 >
 > Status Code **202**
+>
 > 대기열에 존재하지 않는 유저일 경우 새로 대기열에 추가한 후 대기 정보를 반환한다. 이미 대기열에 존재하는 유저일 경우 현재 대기 정보를 반환한다.
 >
 > ```json
@@ -480,7 +484,7 @@
 #### 포인트 충전
 
 <details>
- <summary><code>PATCH</code> <code><b>/cash_charge</b></code> </summary>
+ <summary><code>POST</code> <code><b>/cash_charge</b></code> </summary>
 
 포인트를 충전한다.
 
@@ -499,7 +503,8 @@
 
 ##### Responses
 
-> Status Code **200**
+> Status Code **201**
+
 > 충전 결과와 함께 충전 후 잔액을 반환한다.
 >
 > ```json
@@ -598,7 +603,7 @@
 #### 좌석 결제
 
 <details>
- <summary><code>PATCH</code> <code><b>/payment_performance_seat</b></code> </summary>
+ <summary><code>POST</code> <code><b>/payment_performance_seat</b></code> </summary>
 
 선점한 좌석을 결제한다.
 
@@ -617,7 +622,8 @@
 
 ##### Responses
 
-> Status Code **200**
+> Status Code **201**
+>
 > 결제 결과와 결제한 좌석의 ID를 반환한다.
 >
 > ```json
