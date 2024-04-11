@@ -59,7 +59,6 @@ ver 1
 NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확인할 수 있다.
 
 <br/>
-<br/>
 
 #### 유저 토큰 발급
 
