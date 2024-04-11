@@ -38,9 +38,9 @@ export class QueueController {
         '유저가 로그인 시 발급 받은 접근 토큰 : Bearer {USER_ACCESS_TOKEN}',
     },
   ])
-  @ApiBody({ type: EnqueueRequestDto })
   @ApiResponse({
     status: HttpStatus.CREATED,
+    type: EnqueueRequestDto,
     schema: {
       example: {
         queueToken: '{USER_QUEUE_TOKEN}',

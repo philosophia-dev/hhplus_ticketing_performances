@@ -19,11 +19,13 @@ import {
 } from '@nestjs/swagger';
 import {
   CashBalanceDto,
+  CashChargeResponseDto,
   PerformanceSeatPaymentResponseDto,
 } from '../dto/payment/payment.response.dto';
 import {
   CashChargeDto,
   PaymentHistoryDto,
+  PerformanceSeatPaymentDto,
 } from '../dto/payment/payment.request.dto';
 @ApiTags('Payment')
 @Controller('payment')
@@ -42,11 +44,9 @@ export class PaymentController {
         '유저가 로그인 시 발급 받은 접근 토큰 : Bearer {USER_ACCESS_TOKEN}',
     },
   ])
-  @ApiBody({
-    type: CashBalanceDto,
-  })
   @ApiResponse({
     status: HttpStatus.OK,
+    type: CashBalanceDto,
     schema: {
       example: {
         balance: 100000,
@@ -95,11 +95,10 @@ export class PaymentController {
         '유저가 로그인 시 발급 받은 접근 토큰 : Bearer {USER_ACCESS_TOKEN}',
     },
   ])
-  @ApiBody({
-    type: CashChargeDto,
-  })
+  @ApiBody({ type: CashChargeDto })
   @ApiResponse({
     status: HttpStatus.CREATED,
+    type: CashChargeResponseDto,
     schema: {
       example: {
         result: 'success',
@@ -153,11 +152,9 @@ export class PaymentController {
         '유저가 로그인 시 발급 받은 접근 토큰 : Bearer {USER_ACCESS_TOKEN}',
     },
   ])
-  @ApiBody({
-    type: PaymentHistoryDto,
-  })
   @ApiResponse({
     status: HttpStatus.OK,
+    type: PaymentHistoryDto,
     schema: {
       example: [
         {
@@ -228,11 +225,10 @@ export class PaymentController {
         '유저가 로그인 시 발급 받은 접근 토큰 : Bearer {USER_ACCESS_TOKEN}',
     },
   ])
-  @ApiBody({
-    type: PerformanceSeatPaymentResponseDto,
-  })
+  @ApiBody({ type: PerformanceSeatPaymentDto })
   @ApiResponse({
     status: HttpStatus.CREATED,
+    type: PerformanceSeatPaymentResponseDto,
     schema: {
       example: {
         result: 'success',

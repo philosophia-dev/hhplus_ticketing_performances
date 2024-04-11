@@ -20,6 +20,7 @@ import {
 import {
   PerformanceDto,
   SeatDto,
+  TakeSeatResponseDto,
 } from '../dto/reservation/reservation.response.dto';
 import { TakeSeatDto } from '../dto/reservation/reservation.request.dto';
 
@@ -48,9 +49,9 @@ export class ReservationController {
         '유저가 대기열에 등록하고 받은 토큰 : Bearer {USER_QUEUE_TOKEN}',
     },
   ])
-  @ApiBody({ type: Array<PerformanceDto> })
   @ApiResponse({
     status: HttpStatus.OK,
+    type: Array<PerformanceDto>,
     description: '공연 목록과 함께 대기열 정보를 함께 반환한다.',
     schema: {
       example: {
@@ -164,9 +165,9 @@ export class ReservationController {
         '유저가 대기열에 등록하고 받은 토큰 : Bearer {USER_QUEUE_TOKEN}',
     },
   ])
-  @ApiBody({ type: Array<SeatDto> })
   @ApiResponse({
     status: HttpStatus.OK,
+    type: Array<SeatDto>,
     description:
       '좌석 목록과 함께 대기열 정보를 함께 반환한다. [reservation_status] "AVAILABLE" : 예매 가능, "TEMPORARY_RESERVED" : 이미 선점되어 있으며 결제 대기중, "RESERVED" : 예매됨',
     schema: {
@@ -274,6 +275,7 @@ export class ReservationController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: '선점 요청 결과와 함께 대기열 정보를 함께 반환한다.',
+    type: TakeSeatResponseDto,
     schema: {
       example: {
         result: 'success',
@@ -365,7 +367,8 @@ export class ReservationController {
         '유저가 로그인 시 발급 받은 접근 토큰 : Bearer {USER_ACCESS_TOKEN}',
     },
   ])
-  @ApiBody({
+  @ApiResponse({
+    status: HttpStatus.OK,
     type: Array<
       PerformanceDto & {
         performance_staging_date: Omit<
@@ -374,9 +377,6 @@ export class ReservationController {
         > & { seat: SeatDto[] };
       }
     >,
-  })
-  @ApiResponse({
-    status: HttpStatus.OK,
     description:
       '유저가 선점하거나 예매한 좌석 목록과 함께 대기열 정보를 함께 반환한다.',
     schema: {
