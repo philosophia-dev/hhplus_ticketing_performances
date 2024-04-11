@@ -2,10 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { RedisModule } from '@nestjs-modules/ioredis';
-import { ReservationModule } from './reservation/reservation.module';
-import { PaymentModule } from './payment/payment.module';
-import { AuthModule } from './auth/auth.module';
-import { QueueModule } from './queue/queue.module';
+import { ControllersModule } from './http-client/controllers/controllers.module';
 
 @Module({
   imports: [
@@ -32,10 +29,7 @@ import { QueueModule } from './queue/queue.module';
       },
       type: 'single',
     }),
-    ReservationModule,
-    PaymentModule,
-    AuthModule,
-    QueueModule,
+    ControllersModule,
   ],
 })
 export class AppModule {}

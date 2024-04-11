@@ -54,6 +54,10 @@ ver 1
 
 ## API 명세
 
+<img src="./docs/assets/SwaggerUI-screenshot.png" alt="Swagger Screenshot"  width="90%" />
+
+NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확인할 수 있다.
+
 #### 유저 토큰 발급
 
 <details>
@@ -116,7 +120,7 @@ ver 1
 
 ##### Responses
 
-> Status Code **200**
+> Status Code **201**
 >
 > ```json
 > {
@@ -173,7 +177,7 @@ ver 1
 >     },
 >     "performance_staging_date": [
 >       {
->         "id": 1,
+>         "id": "123e4567-e89b-12d3-a456-426614174000",
 >         "staging_date": "2024-05-01T00:00:00.000Z",
 >         "reserveable_seats_count": 10
 >       }
@@ -264,7 +268,7 @@ ver 1
 > {
 >   "data": [
 >     {
->       "id": 1,
+>       "id": "123e4567-e89b-12d3-a456-426614174000",
 >       "seat_number": "1",
 >       "price": 70000,
 >       "reservation_status": "AVAILABLE"
@@ -427,26 +431,30 @@ ver 1
 >
 > ```json
 > {
->   "data": {
->     "title": "공연 제목",
->     "ticketing_start_date": "2024-04-15T00:00:00.000Z",
->     "stage": {
->       "name": "공연장 이름",
->       "location": "공연장 위치"
->     },
->     "performance_staging_date": [
->       {
->         "id": 1,
->         "staging_date": "2024-05-01T00:00:00.000Z",
->         "seat": {
->           "id": 1,
->           "seat_number": "1",
->           "price": 70000,
->           "reservation_status": "TEMPORARY_RESERVED"
+>   "data": [
+>     {
+>       "title": "공연 제목",
+>       "ticketing_start_date": "2024-04-15T00:00:00.000Z",
+>       "stage": {
+>         "name": "공연장 이름",
+>         "location": "공연장 위치"
+>       },
+>       "performance_staging_date": [
+>         {
+>           "id": "123e4567-e89b-12d3-a456-426614174000",
+>           "staging_date": "2024-05-01T00:00:00.000Z",
+>           "seat": [
+>             {
+>               "id": "123e4567-e89b-12d3-a456-426614174000",
+>               "seat_number": "1",
+>               "price": 70000,
+>               "reservation_status": "TEMPORARY_RESERVED"
+>             }
+>           ]
 >         }
->       }
->     ]
->   },
+>       ]
+>     }
+>   ],
 >   "queue_data": {
 >     "id": "{UUID}",
 >     "issued_timestamp": 1570543163783,
@@ -621,7 +629,7 @@ ver 1
 >     "date_created": "2024-04-08T00:00:00.000Z",
 >     "amount": -100000,
 >     "cause": "PEYMENT_PERFORMANCE_SEAT",
->     "performance_seat_id": 1
+>     "performance_seat_id": "123e4567-e89b-12d3-a456-426614174000"
 >   }
 > ]
 > ```
@@ -679,7 +687,7 @@ ver 1
 > ```json
 > {
 >   "result": "success",
->   "performance_seat_id": 1
+>   "performance_seat_id": "123e4567-e89b-12d3-a456-426614174000"
 > }
 > ```
 >
