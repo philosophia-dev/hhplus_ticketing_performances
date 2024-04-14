@@ -1,4 +1,4 @@
-import { CashBalance } from 'src/domain/model/cash-balance.entity';
+import { CashBalance } from 'src/domain/payment/model/cash-balance.entity';
 import {
   Column,
   Entity,
@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserTypeORM } from './user.entity';
+import { UserTypeORM } from '../../auth/model/user.entity';
 
 @Entity('cash_balance')
 export class CashBalanceTypeORM implements CashBalance {

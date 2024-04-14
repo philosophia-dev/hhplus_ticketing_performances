@@ -5,12 +5,12 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserTypeORM } from './user.entity';
 import { PerformanceStagingDateTypeORM } from './performance-staging-date.entity';
 import {
   PerformanceSeats,
   ReservationStatus,
-} from 'src/domain/model/performance-seats.entity';
+} from 'src/domain/reservation/model/performance-seats.entity';
+import { UserTypeORM } from '../../auth/model/user.entity';
 
 @Entity('performance_seats')
 export class PerformanceSeatsTypeORM implements PerformanceSeats {

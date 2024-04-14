@@ -1,5 +1,5 @@
+import { User } from 'src/domain/auth/model/user.entity';
 import { PerformanceStagingDate } from './performance-staging-date.entity';
-import { User } from './user.entity';
 
 export enum ReservationStatus {
   AVAILABLE = 'AVAILABLE',

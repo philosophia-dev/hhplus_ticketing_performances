@@ -1,4 +1,4 @@
-import { Stage } from 'src/domain/model/stage.entity';
+import { Stage } from 'src/domain/reservation/model/stage.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('stage')

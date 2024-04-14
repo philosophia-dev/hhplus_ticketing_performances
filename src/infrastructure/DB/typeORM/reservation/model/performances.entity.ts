@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { StageTypeORM } from './stage.entity';
-import { Performances } from 'src/domain/model/performances.entity';
+import { Performances } from 'src/domain/reservation/model/performances.entity';
 
 @Entity('performances')
 export class PerformancesTypeORM implements Performances {

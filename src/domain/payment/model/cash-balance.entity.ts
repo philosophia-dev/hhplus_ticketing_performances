@@ -1,4 +1,4 @@
-import { User } from './user.entity';
+import { User } from 'src/domain/auth/model/user.entity';
 
 export class CashBalance {
   id: string;

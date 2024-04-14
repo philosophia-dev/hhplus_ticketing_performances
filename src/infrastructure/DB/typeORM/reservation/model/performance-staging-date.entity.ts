@@ -1,4 +1,3 @@
-import { PerformanceStagingDate } from 'src/domain/model/performance-staging-date.entity';
 import {
   Column,
   Entity,
@@ -7,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PerformancesTypeORM } from './performances.entity';
+import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.entity';
 
 @Entity('performance_staging_date')
 export class PerformanceStagingDateTypeORM implements PerformanceStagingDate {

@@ -1,4 +1,3 @@
-import { PaymentHistory } from 'src/domain/model/performance-history.entity';
 import {
   Column,
   Entity,
@@ -6,8 +5,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PerformanceSeatsTypeORM } from './performance-seats.entity';
 import { CashBalanceTypeORM } from './cash-balance.entity';
+import { PaymentHistory } from 'src/domain/payment/model/payment-history.entity';
+import { PerformanceSeatsTypeORM } from '../../reservation/model/performance-seats.entity';
 
 @Entity('payment_history')
 export class PaymentHistoryTypeORM implements PaymentHistory {
