@@ -75,7 +75,7 @@ export class PaymentController {
       },
     },
   })
-  @Get('/cash_balance')
+  @Get('/cash')
   async getCashBalance(@Headers('authorization') authorization: string) {
     const MOCK_DATA = {
       balance: 100000,
@@ -128,7 +128,7 @@ export class PaymentController {
       },
     },
   })
-  @Post('/cash_charge')
+  @Post('/cash')
   async chargeCash(
     @Headers('authorization') authorization: string,
     @Body(ValidationPipe) body: { amount: number },

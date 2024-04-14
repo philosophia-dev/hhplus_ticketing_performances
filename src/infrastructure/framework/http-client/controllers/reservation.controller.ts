@@ -52,31 +52,22 @@ export class ReservationController {
   @ApiResponse({
     status: HttpStatus.OK,
     type: Array<PerformanceDto>,
-    description: '공연 목록과 함께 대기열 정보를 함께 반환한다.',
+    description: '공연 목록을 반환한다.',
     schema: {
       example: {
-        data: {
-          title: '공연 제목',
-          ticketing_start_date: '2024-04-15T00:00:00.000Z',
-          stage: {
-            name: '공연장 이름',
-            location: '공연장 위치',
+        title: '공연 제목',
+        ticketing_start_date: '2024-04-15T00:00:00.000Z',
+        stage: {
+          name: '공연장 이름',
+          location: '공연장 위치',
+        },
+        performance_staging_date: [
+          {
+            id: 1,
+            staging_date: '2024-05-01T00:00:00.000Z',
+            reserveable_seats_count: 10,
           },
-          performance_staging_date: [
-            {
-              id: 1,
-              staging_date: '2024-05-01T00:00:00.000Z',
-              reserveable_seats_count: 10,
-            },
-          ],
-        },
-        queue_data: {
-          id: '{UUID}',
-          issued_timestamp: 1570543163783,
-          active_timestamp: 1570543213783,
-          expire_timestamp: 1570543263783,
-          rank: 0,
-        },
+        ],
       },
     },
   })
@@ -120,28 +111,19 @@ export class ReservationController {
   })
   async getPerformances(@Headers() headers: Record<string, string>) {
     const MOCK_DATA = {
-      data: {
-        title: '공연 제목',
-        ticketing_start_date: '2024-04-15T00:00:00.000Z',
-        stage: {
-          name: '공연장 이름',
-          location: '공연장 위치',
+      title: '공연 제목',
+      ticketing_start_date: '2024-04-15T00:00:00.000Z',
+      stage: {
+        name: '공연장 이름',
+        location: '공연장 위치',
+      },
+      performance_staging_date: [
+        {
+          id: 1,
+          staging_date: '2024-05-01T00:00:00.000Z',
+          reserveable_seats_count: 10,
         },
-        performance_staging_date: [
-          {
-            id: 1,
-            staging_date: '2024-05-01T00:00:00.000Z',
-            reserveable_seats_count: 10,
-          },
-        ],
-      },
-      queue_data: {
-        id: '{UUID}',
-        issued_timestamp: 1570543163783,
-        active_timestamp: 1570543213783,
-        expire_timestamp: 1570543263783,
-        rank: 0,
-      },
+      ],
     };
     return MOCK_DATA;
   }
@@ -169,25 +151,16 @@ export class ReservationController {
     status: HttpStatus.OK,
     type: Array<SeatDto>,
     description:
-      '좌석 목록과 함께 대기열 정보를 함께 반환한다. [reservation_status] "AVAILABLE" : 예매 가능, "TEMPORARY_RESERVED" : 이미 선점되어 있으며 결제 대기중, "RESERVED" : 예매됨',
+      '좌석 목록을 반환한다. [reservation_status] "AVAILABLE" : 예매 가능, "TEMPORARY_RESERVED" : 이미 선점되어 있으며 결제 대기중, "RESERVED" : 예매됨',
     schema: {
-      example: {
-        data: [
-          {
-            id: '123e4567-e89b-12d3-a456-426614174000',
-            seat_number: '1',
-            price: 70000,
-            reservation_status: 'AVAILABLE',
-          },
-        ],
-        queue_data: {
-          id: '{UUID}',
-          issued_timestamp: 1570543163783,
-          active_timestamp: 1570543213783,
-          expire_timestamp: 1570543263783,
-          rank: 0,
+      example: [
+        {
+          id: '123e4567-e89b-12d3-a456-426614174000',
+          seat_number: '1',
+          price: 70000,
+          reservation_status: 'AVAILABLE',
         },
-      },
+      ],
     },
   })
   @ApiResponse({
@@ -233,23 +206,14 @@ export class ReservationController {
     @Param('performance_staging_date_id') performanceStagingDateId: string,
     @Headers() headers: Record<string, string>,
   ) {
-    const MOCK_DATA = {
-      data: [
-        {
-          id: 1,
-          seat_number: '1',
-          price: 70000,
-          reservation_status: 'AVAILABLE',
-        },
-      ],
-      queue_data: {
-        id: '{UUID}',
-        issued_timestamp: 1570543163783,
-        active_timestamp: 1570543213783,
-        expire_timestamp: 1570543263783,
-        rank: 0,
+    const MOCK_DATA = [
+      {
+        id: 1,
+        seat_number: '1',
+        price: 70000,
+        reservation_status: 'AVAILABLE',
       },
-    };
+    ];
     return MOCK_DATA;
   }
 
@@ -274,7 +238,7 @@ export class ReservationController {
   @ApiBody({ type: TakeSeatDto })
   @ApiResponse({
     status: HttpStatus.OK,
-    description: '선점 요청 결과와 함께 대기열 정보를 함께 반환한다.',
+    description: '선점 요청 결과를 반환한다.',
     type: TakeSeatResponseDto,
     schema: {
       example: {
@@ -283,13 +247,6 @@ export class ReservationController {
           seat_number: '1',
           price: 70000,
           reservation_status: 'TEMPORARY_RESERVED',
-        },
-        queue_data: {
-          id: '{UUID}',
-          issued_timestamp: 1570543163783,
-          active_timestamp: 1570543213783,
-          expire_timestamp: 1570543263783,
-          rank: 0,
         },
       },
     },
@@ -344,13 +301,6 @@ export class ReservationController {
         price: 70000,
         reservation_status: 'TEMPORARY_RESERVED',
       },
-      queue_data: {
-        id: '{UUID}',
-        issued_timestamp: 1570543163783,
-        active_timestamp: 1570543213783,
-        expire_timestamp: 1570543263783,
-        rank: 0,
-      },
     };
     return MOCK_DATA;
   }
@@ -377,42 +327,32 @@ export class ReservationController {
         > & { seat: SeatDto[] };
       }
     >,
-    description:
-      '유저가 선점하거나 예매한 좌석 목록과 함께 대기열 정보를 함께 반환한다.',
+    description: '유저가 선점하거나 예매한 좌석 목록을 반환한다.',
     schema: {
-      example: {
-        data: [
-          {
-            title: '공연 제목',
-            ticketing_start_date: '2024-04-15T00:00:00.000Z',
-            stage: {
-              name: '공연장 이름',
-              location: '공연장 위치',
-            },
-            performance_staging_date: [
-              {
-                id: 1,
-                staging_date: '2024-05-01T00:00:00.000Z',
-                seat: [
-                  {
-                    id: 1,
-                    seat_number: '1',
-                    price: 70000,
-                    reservation_status: 'TEMPORARY_RESERVED',
-                  },
-                ],
-              },
-            ],
+      example: [
+        {
+          title: '공연 제목',
+          ticketing_start_date: '2024-04-15T00:00:00.000Z',
+          stage: {
+            name: '공연장 이름',
+            location: '공연장 위치',
           },
-        ],
-        queue_data: {
-          id: '{UUID}',
-          issued_timestamp: 1570543163783,
-          active_timestamp: 1570543213783,
-          expire_timestamp: 1570543263783,
-          rank: 0,
+          performance_staging_date: [
+            {
+              id: 1,
+              staging_date: '2024-05-01T00:00:00.000Z',
+              seat: [
+                {
+                  id: 1,
+                  seat_number: '1',
+                  price: 70000,
+                  reservation_status: 'TEMPORARY_RESERVED',
+                },
+              ],
+            },
+          ],
         },
-      },
+      ],
     },
   })
   @ApiResponse({
@@ -442,33 +382,24 @@ export class ReservationController {
     @Headers('authorization') authorization: string,
   ) {
     const MOCK_DATA = {
-      data: {
-        title: '공연 제목',
-        ticketing_start_date: '2024-04-15T00:00:00.000Z',
-        stage: {
-          name: '공연장 이름',
-          location: '공연장 위치',
-        },
-        performance_staging_date: [
-          {
+      title: '공연 제목',
+      ticketing_start_date: '2024-04-15T00:00:00.000Z',
+      stage: {
+        name: '공연장 이름',
+        location: '공연장 위치',
+      },
+      performance_staging_date: [
+        {
+          id: '123e4567-e89b-12d3-a456-426614174000',
+          staging_date: '2024-05-01T00:00:00.000Z',
+          seat: {
             id: '123e4567-e89b-12d3-a456-426614174000',
-            staging_date: '2024-05-01T00:00:00.000Z',
-            seat: {
-              id: '123e4567-e89b-12d3-a456-426614174000',
-              seat_number: '1',
-              price: 70000,
-              reservation_status: 'TEMPORARY_RESERVED',
-            },
+            seat_number: '1',
+            price: 70000,
+            reservation_status: 'TEMPORARY_RESERVED',
           },
-        ],
-      },
-      queue_data: {
-        id: '{UUID}',
-        issued_timestamp: 1570543163783,
-        active_timestamp: 1570543213783,
-        expire_timestamp: 1570543263783,
-        rank: 0,
-      },
+        },
+      ],
     };
     return MOCK_DATA;
   }

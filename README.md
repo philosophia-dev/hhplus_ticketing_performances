@@ -103,7 +103,7 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 #### 대기열 토큰 발급
 
 <details>
- <summary><code>POST</code> <code><b>/queue/enqueue</b></code></summary>
+ <summary><code>POST</code> <code><b>/queue/queue</b></code></summary>
 
 대기가 필요한 API를 사용하는 데 필요한 대기열 토큰을 발급한다.
 
@@ -126,7 +126,101 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 >
 > ```json
 > {
->   "queueToken": "{USER_QUEUE_TOKEN}"
+>   "id": "{USER_QUEUE_TOKEN}",
+>   "requested_endpoint": "/endpoint",
+>   "issued_timestamp": 1570543163783,
+>   "active_timestamp": 1570543213783,
+>   "expire_timestamp": 1570543263783,
+>   "rank": 0
+> }
+> ```
+>
+> Status Code **400**
+>
+> ```json
+> {
+>   "message": "<error-message>",
+>   "error": "Bad Request",
+>   "statusCode": 400
+> }
+> ```
+
+</details>
+
+---
+
+#### 대기열 토큰 조회
+
+<details>
+ <summary><code>GET</code> <code><b>/queue/queue</b></code></summary>
+
+기존에 발급 받은 대기열 토큰의 정보를 조회한다.
+
+##### Headers
+
+> | name          | required | description                                                         |
+> | ------------- | -------- | ------------------------------------------------------------------- |
+> | Authorization | true     | 유저가 로그인 시 발급 받은 접근 토큰<br/>Bearer {USER_ACCESS_TOKEN} |
+> | Queue-Token   | true     | 유저가 대기열에 등록하고 받은 토큰<br/>Bearer {USER_QUEUE_TOKEN}    |
+
+##### Parameters
+
+None
+
+##### Responses
+
+> Status Code **200**
+>
+> ```json
+> {
+>   "id": "{USER_QUEUE_TOKEN}",
+>   "requested_endpoint": "/endpoint",
+>   "issued_timestamp": 1570543163783,
+>   "active_timestamp": 1570543213783,
+>   "expire_timestamp": 1570543263783,
+>   "rank": 0
+> }
+> ```
+>
+> Status Code **400**
+>
+> ```json
+> {
+>   "message": "<error-message>",
+>   "error": "Bad Request",
+>   "statusCode": 400
+> }
+> ```
+
+</details>
+
+---
+
+#### 대기열 토큰 삭제
+
+<details>
+ <summary><code>DELETE</code> <code><b>/queue/queue</b></code></summary>
+
+기존에 발급 받은 대기열 토큰을 삭제한다. 주로 유저의 브라우저 이탈 등의 이벤트 발생 시 client에서 요청하기 위해 사용된다.
+
+##### Headers
+
+> | name          | required | description                                                         |
+> | ------------- | -------- | ------------------------------------------------------------------- |
+> | Authorization | true     | 유저가 로그인 시 발급 받은 접근 토큰<br/>Bearer {USER_ACCESS_TOKEN} |
+> | Queue-Token   | true     | 유저가 대기열에 등록하고 받은 토큰<br/>Bearer {USER_QUEUE_TOKEN}    |
+
+##### Parameters
+
+None
+
+##### Responses
+
+> Status Code **200**
+>
+> ```json
+> {
+>   "result": "success"
 > }
 > ```
 >
@@ -166,32 +260,23 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 
 > Status Code **200**
 >
-> 공연 목록과 함께 대기열 정보를 함께 반환한다.
+> 공연 목록을 반환한다.
 >
 > ```json
 > {
->   "data": {
->     "title": "공연 제목",
->     "ticketing_start_date": "2024-04-15T00:00:00.000Z",
->     "stage": {
->       "name": "공연장 이름",
->       "location": "공연장 위치"
->     },
->     "performance_staging_date": [
->       {
->         "id": "123e4567-e89b-12d3-a456-426614174000",
->         "staging_date": "2024-05-01T00:00:00.000Z",
->         "reserveable_seats_count": 10
->       }
->     ]
+>   "title": "공연 제목",
+>   "ticketing_start_date": "2024-04-15T00:00:00.000Z",
+>   "stage": {
+>     "name": "공연장 이름",
+>     "location": "공연장 위치"
 >   },
->   "queue_data": {
->     "id": "{UUID}",
->     "issued_timestamp": 1570543163783,
->     "active_timestamp": 1570543213783,
->     "expire_timestamp": 1570543263783,
->     "rank": 0
->   }
+>   "performance_staging_date": [
+>     {
+>       "id": "123e4567-e89b-12d3-a456-426614174000",
+>       "staging_date": "2024-05-01T00:00:00.000Z",
+>       "reserveable_seats_count": 10
+>     }
+>   ]
 > }
 > ```
 >
@@ -259,7 +344,7 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 
 > Status Code **200**
 >
-> 좌석 목록과 함께 대기열 정보를 함께 반환한다.
+> 좌석 목록을 반환한다.
 >
 > - reservation_status
 >   - "AVAILABLE" : 예매 가능
@@ -267,23 +352,14 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 >   - "RESERVED" : 예매됨
 >
 > ```json
-> {
->   "data": [
->     {
->       "id": "123e4567-e89b-12d3-a456-426614174000",
->       "seat_number": "1",
->       "price": 70000,
->       "reservation_status": "AVAILABLE"
->     }
->   ],
->   "queue_data": {
->     "id": "{UUID}",
->     "issued_timestamp": 1570543163783,
->     "active_timestamp": 1570543213783,
->     "expire_timestamp": 1570543263783,
->     "rank": 0
+> [
+>   {
+>     "id": "123e4567-e89b-12d3-a456-426614174000",
+>     "seat_number": "1",
+>     "price": 70000,
+>     "reservation_status": "AVAILABLE"
 >   }
-> }
+> ]
 > ```
 >
 > Status Code **202**
@@ -349,7 +425,7 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 ##### Responses
 
 > Status Code **200**
-> 선점 요청 결과와 함께 대기열 정보를 함께 반환한다.
+> 선점 요청 결과를 반환한다.
 >
 > ```json
 > {
@@ -358,13 +434,6 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 >     "seat_number": "1",
 >     "price": 70000,
 >     "reservation_status": "TEMPORARY_RESERVED"
->   },
->   "queue_data": {
->     "id": "{UUID}",
->     "issued_timestamp": 1570543163783,
->     "active_timestamp": 1570543213783,
->     "expire_timestamp": 1570543263783,
->     "rank": 0
 >   }
 > }
 > ```
@@ -429,42 +498,33 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 
 > Status Code **200**
 >
-> 유저가 선점하거나 예매한 좌석 목록과 함께 대기열 정보를 함께 반환한다.
+> 유저가 선점하거나 예매한 좌석 목록을 반환한다.
 >
 > ```json
-> {
->   "data": [
->     {
->       "title": "공연 제목",
->       "ticketing_start_date": "2024-04-15T00:00:00.000Z",
->       "stage": {
->         "name": "공연장 이름",
->         "location": "공연장 위치"
->       },
->       "performance_staging_date": [
->         {
->           "id": "123e4567-e89b-12d3-a456-426614174000",
->           "staging_date": "2024-05-01T00:00:00.000Z",
->           "seat": [
->             {
->               "id": "123e4567-e89b-12d3-a456-426614174000",
->               "seat_number": "1",
->               "price": 70000,
->               "reservation_status": "TEMPORARY_RESERVED"
->             }
->           ]
->         }
->       ]
->     }
->   ],
->   "queue_data": {
->     "id": "{UUID}",
->     "issued_timestamp": 1570543163783,
->     "active_timestamp": 1570543213783,
->     "expire_timestamp": 1570543263783,
->     "rank": 0
+> [
+>   {
+>     "title": "공연 제목",
+>     "ticketing_start_date": "2024-04-15T00:00:00.000Z",
+>     "stage": {
+>       "name": "공연장 이름",
+>       "location": "공연장 위치"
+>     },
+>     "performance_staging_date": [
+>       {
+>         "id": "123e4567-e89b-12d3-a456-426614174000",
+>         "staging_date": "2024-05-01T00:00:00.000Z",
+>         "seat": [
+>           {
+>             "id": "123e4567-e89b-12d3-a456-426614174000",
+>             "seat_number": "1",
+>             "price": 70000,
+>             "reservation_status": "TEMPORARY_RESERVED"
+>           }
+>         ]
+>       }
+>     ]
 >   }
-> }
+> ]
 > ```
 >
 > Status Code **400**
@@ -494,7 +554,7 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 #### 포인트 잔액 조회
 
 <details>
-<summary><code>GET</code> <code><b>/payment/cash_balance</b></code></summary>
+<summary><code>GET</code> <code><b>/payment/cash</b></code></summary>
 
 현재 포인트의 잔액을 조회한다.
 
@@ -545,7 +605,7 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 #### 포인트 충전
 
 <details>
- <summary><code>POST</code> <code><b>/payment/cash_charge</b></code> </summary>
+ <summary><code>POST</code> <code><b>/payment/cash</b></code> </summary>
 
 포인트를 충전한다.
 
@@ -625,7 +685,7 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 >     "date_created": "2024-04-08T00:00:00.000Z",
 >     "amount": 20000,
 >     "cause": "CHARGED_BY_USER",
->     "performance_seat_id": Null
+>     "performance_seat_id": null
 >   },
 >   {
 >     "date_created": "2024-04-08T00:00:00.000Z",
