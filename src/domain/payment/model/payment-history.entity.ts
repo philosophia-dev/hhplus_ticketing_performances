@@ -1,7 +1,7 @@
 import { PerformanceSeats } from 'src/domain/reservation/model/performance-seats.entity';
 import { CashBalance } from './cash-balance.entity';
 
-export class PaymentHistory {
+export interface PaymentHistory {
   id: string;
   dateCreated: Date;
   cashBalanceId: string;

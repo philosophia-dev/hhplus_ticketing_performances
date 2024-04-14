@@ -10,7 +10,7 @@ import {
   PerformanceSeats,
   ReservationStatus,
 } from 'src/domain/reservation/model/performance-seats.entity';
-import { UserTypeORM } from '../../auth/model/user.entity';
+import { UserTypeORM } from '../../auth/model/users.entity';
 
 @Entity('performance_seats')
 export class PerformanceSeatsTypeORM implements PerformanceSeats {

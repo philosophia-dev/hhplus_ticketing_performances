@@ -1,8 +1,8 @@
-import { User } from 'src/domain/auth/model/user.entity';
+import { Users } from 'src/domain/auth/model/users.entity';
 
-export class CashBalance {
+export interface CashBalance {
   id: string;
   userId: string;
-  user?: User;
+  user?: Users;
   balance: number;
 }

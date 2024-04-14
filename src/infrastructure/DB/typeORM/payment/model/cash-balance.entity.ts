@@ -6,7 +6,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UserTypeORM } from '../../auth/model/user.entity';
+import { UserTypeORM } from '../../auth/model/users.entity';
 
 @Entity('cash_balance')
 export class CashBalanceTypeORM implements CashBalance {

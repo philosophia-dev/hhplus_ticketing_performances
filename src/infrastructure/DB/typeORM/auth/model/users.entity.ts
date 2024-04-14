@@ -1,8 +1,8 @@
-import { User } from 'src/domain/auth/model/user.entity';
+import { Users } from 'src/domain/auth/model/users.entity';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('users')
-export class UserTypeORM implements User {
+export class UsersTypeORM implements Users {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

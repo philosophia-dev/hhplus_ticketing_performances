@@ -1,4 +1,4 @@
-export class User {
+export interface Users {
   id: string;
   dateCreated: Date;
   emailAddress: string;

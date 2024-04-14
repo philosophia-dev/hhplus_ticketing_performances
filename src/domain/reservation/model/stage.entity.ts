@@ -1,4 +1,4 @@
-export class Stage {
+export interface Stage {
   id: string;
   dateCreated: Date;
   name: string;
