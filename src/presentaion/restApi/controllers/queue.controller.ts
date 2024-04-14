@@ -18,11 +18,11 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { EnqueueRequestDto } from '../dto/queue/queue.request.dto';
+import { EnqueueRequestDto } from '../../dto/queue/queue.request.dto';
 import {
   DeleteQueueResponseDto,
   QueueResponseDto,
-} from '../dto/queue/queue.response.dto';
+} from '../../dto/queue/queue.response.dto';
 
 @ApiTags('Queue')
 @Controller('queue')

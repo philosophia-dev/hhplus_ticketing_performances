@@ -21,8 +21,8 @@ import {
   PerformanceDto,
   SeatDto,
   TakeSeatResponseDto,
-} from '../dto/reservation/reservation.response.dto';
-import { TakeSeatDto } from '../dto/reservation/reservation.request.dto';
+} from '../../dto/reservation/reservation.response.dto';
+import { TakeSeatDto } from '../../dto/reservation/reservation.request.dto';
 
 @ApiTags('Reservation')
 @Controller('reservation')

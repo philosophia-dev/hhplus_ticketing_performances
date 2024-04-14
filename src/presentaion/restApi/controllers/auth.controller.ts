@@ -10,7 +10,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { SignInRequestDto } from '../dto/auth/auth.request.dto';
+import { SignInRequestDto } from '../../dto/auth/auth.request.dto';
 
 @ApiTags('Auth')
 @Controller('auth')

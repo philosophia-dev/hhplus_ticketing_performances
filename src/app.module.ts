@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { RedisModule } from '@nestjs-modules/ioredis';
-import { ControllersModule } from './http-client/controllers/controllers.module';
+import { ControllersModule } from './presentaion/restApi/controllers/controllers.module';
 
 @Module({
   imports: [

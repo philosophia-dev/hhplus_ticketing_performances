@@ -21,12 +21,12 @@ import {
   CashBalanceDto,
   CashChargeResponseDto,
   PerformanceSeatPaymentResponseDto,
-} from '../dto/payment/payment.response.dto';
+} from '../../dto/payment/payment.response.dto';
 import {
   CashChargeDto,
   PaymentHistoryDto,
   PerformanceSeatPaymentDto,
-} from '../dto/payment/payment.request.dto';
+} from '../../dto/payment/payment.request.dto';
 @ApiTags('Payment')
 @Controller('payment')
 export class PaymentController {
