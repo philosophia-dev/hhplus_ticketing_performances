@@ -1,7 +1,22 @@
+import { QueryRunner } from './data-accessor.interface';
+
 export interface Repository<T> {
-  create(data: T, ...args: any[]): Promise<T>;
-  findAll(filter?: Partial<T>, ...args: any[]): Promise<T[]>;
-  findOne(filter: Partial<T>, ...args: any[]): Promise<T>;
-  update(id: number, data: Partial<T>, ...args: any[]): Promise<T>;
-  delete(id: number, ...args: any[]): Promise<void>;
+  create(queryRunner: QueryRunner, data: T, ...args: any[]): Promise<T>;
+  findAll(
+    queryRunner: QueryRunner,
+    filter?: Partial<T>,
+    ...args: any[]
+  ): Promise<T[]>;
+  findOne(
+    queryRunner: QueryRunner,
+    filter: Partial<T>,
+    ...args: any[]
+  ): Promise<T>;
+  update(
+    queryRunner: QueryRunner,
+    id: string,
+    data: Partial<T>,
+    ...args: any[]
+  ): Promise<T>;
+  delete(iqueryRunner: QueryRunner, id: string, ...args: any[]): Promise<void>;
 }
