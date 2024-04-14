@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { CashBalanceTypeORM } from './cash-balance.entity';
 import { PaymentHistory } from 'src/domain/payment/model/payment-history.entity';
-import { PerformanceSeatsTypeORM } from '../../reservation/model/performance-seats.entity';
+import { PerformanceSeatTypeORM } from '../../reservation/model/performance-seat.entity';
 
 @Entity('payment_history')
 export class PaymentHistoryTypeORM implements PaymentHistory {
@@ -33,7 +33,7 @@ export class PaymentHistoryTypeORM implements PaymentHistory {
   @Column({ type: 'uuid', nullable: false })
   performanceSeatId: string;
 
-  @ManyToOne(() => PerformanceSeatsTypeORM)
+  @ManyToOne(() => PerformanceSeatTypeORM)
   @JoinColumn({ name: 'performance_seat_id' })
-  performanceSeat: PerformanceSeatsTypeORM;
+  performanceSeat: PerformanceSeatTypeORM;
 }

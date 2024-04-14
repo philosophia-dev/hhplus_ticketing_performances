@@ -1,4 +1,4 @@
-import { PerformanceSeats } from 'src/domain/reservation/model/performance-seats.entity';
+import { PerformanceSeat } from 'src/domain/reservation/model/performance-seat.entity';
 import { CashBalance } from './cash-balance.entity';
 
 export interface PaymentHistory {
@@ -9,5 +9,5 @@ export interface PaymentHistory {
   amount: number;
   cause: string;
   performanceSeatId: string;
-  performanceSeat?: PerformanceSeats;
+  performanceSeat?: PerformanceSeat;
 }

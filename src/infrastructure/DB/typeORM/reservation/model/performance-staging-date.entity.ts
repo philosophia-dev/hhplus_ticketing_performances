@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PerformancesTypeORM } from './performances.entity';
+import { PerformanceTypeORM } from './performance.entity';
 import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.entity';
 
 @Entity('performance_staging_date')
@@ -16,9 +16,9 @@ export class PerformanceStagingDateTypeORM implements PerformanceStagingDate {
   @Column({ type: 'uuid', nullable: false })
   performanceId: string;
 
-  @ManyToOne(() => PerformancesTypeORM)
+  @ManyToOne(() => PerformanceTypeORM)
   @JoinColumn({ name: 'performance_id' })
-  performance: PerformancesTypeORM;
+  performance: PerformanceTypeORM;
 
   @Column({ type: 'timestamp', nullable: false })
   stagingDate: Date;

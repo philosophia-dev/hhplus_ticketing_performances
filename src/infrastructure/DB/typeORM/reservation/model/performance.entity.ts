@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { StageTypeORM } from './stage.entity';
-import { Performances } from 'src/domain/reservation/model/performances.entity';
+import { Performance } from 'src/domain/reservation/model/performance.entity';
 
 @Entity('performances')
-export class PerformancesTypeORM implements Performances {
+export class PerformanceTypeORM implements Performance {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

@@ -1,4 +1,4 @@
-import { Users } from 'src/domain/auth/model/users.entity';
+import { User } from 'src/domain/auth/model/user.entity';
 import { PerformanceStagingDate } from './performance-staging-date.entity';
 
 export enum ReservationStatus {
@@ -8,7 +8,7 @@ export enum ReservationStatus {
   UNAVAILABLE = 'UNAVAILABLE',
 }
 
-export interface PerformanceSeats {
+export interface PerformanceSeat {
   id: string;
   dateCreated: Date;
   performanceStagingDateId: string;
@@ -17,5 +17,5 @@ export interface PerformanceSeats {
   price: number;
   reservationStatus: ReservationStatus;
   reservedUserId: string;
-  reservedUser?: Users;
+  reservedUser?: User;
 }

@@ -1,5 +1,6 @@
 export type QueryRunner = any;
 
+export const TOKEN = 'DataAccessor';
 export interface DataAccessor {
   connect(option?: any): Promise<QueryRunner>;
   startTransaction(

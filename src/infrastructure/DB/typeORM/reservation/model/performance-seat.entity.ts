@@ -7,13 +7,13 @@ import {
 } from 'typeorm';
 import { PerformanceStagingDateTypeORM } from './performance-staging-date.entity';
 import {
-  PerformanceSeats,
+  PerformanceSeat,
   ReservationStatus,
-} from 'src/domain/reservation/model/performance-seats.entity';
-import { UserTypeORM } from '../../auth/model/users.entity';
+} from 'src/domain/reservation/model/performance-seat.entity';
+import { UserTypeORM } from '../../auth/model/user.entity';
 
 @Entity('performance_seats')
-export class PerformanceSeatsTypeORM implements PerformanceSeats {
+export class PerformanceSeatTypeORM implements PerformanceSeat {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

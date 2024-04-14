@@ -1,6 +1,6 @@
 import { Stage } from './stage.entity';
 
-export interface Performances {
+export interface Performance {
   id: string;
   dateCreated: Date;
   title: string;

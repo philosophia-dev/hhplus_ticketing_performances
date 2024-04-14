@@ -18,5 +18,5 @@ export interface Repository<T> {
     data: Partial<T>,
     ...args: any[]
   ): Promise<T>;
-  delete(iqueryRunner: QueryRunner, id: string, ...args: any[]): Promise<void>;
+  delete(queryRunner: QueryRunner, id: string, ...args: any[]): Promise<void>;
 }

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ReservationStatus } from 'src/domain/model/performance-seats.entity';
+import { ReservationStatus } from 'src/domain/model/performance-seat.entity';
 
 class StageDto {
   @ApiProperty({ example: 'Grand Theater' })
