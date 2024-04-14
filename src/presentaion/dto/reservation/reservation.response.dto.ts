@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ReservationStatus } from 'src/domain/model/performance-seats.entity';
 
 class StageDto {
   @ApiProperty({ example: 'Grand Theater' })
@@ -44,12 +45,12 @@ export class SeatDto {
   price: number;
 
   @ApiProperty({ example: 'TEMPORARY_RESERVED' })
-  reservation_status: string;
+  reservation_status: ReservationStatus;
 }
 
 export class TakeSeatResponseDto {
   @ApiProperty({ example: 'success' })
-  result: string;
+  result: 'success' | 'fail';
 
   @ApiProperty({ type: SeatDto })
   data: SeatDto;

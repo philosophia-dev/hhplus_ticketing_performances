@@ -22,5 +22,5 @@ export class QueueResponseDto {
 
 export class DeleteQueueResponseDto {
   @ApiProperty({ example: 'success' })
-  result: string;
+  result: 'success' | 'fail';
 }

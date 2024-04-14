@@ -151,7 +151,7 @@ export class ReservationController {
     status: HttpStatus.OK,
     type: Array<SeatDto>,
     description:
-      '좌석 목록을 반환한다. [reservation_status] "AVAILABLE" : 예매 가능, "TEMPORARY_RESERVED" : 이미 선점되어 있으며 결제 대기중, "RESERVED" : 예매됨',
+      '좌석 목록을 반환한다. [reservation_status] "AVAILABLE" : 예매 가능, "TEMPORARY_RESERVED" : 이미 선점되어 있으며 결제 대기중, "RESERVED" : 예매됨, "UNAVAILABLE" : 이용 불가 좌석',
     schema: {
       example: [
         {

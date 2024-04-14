@@ -24,7 +24,7 @@ export class PaymentHistoryDto {
 
 export class CashChargeResponseDto {
   @ApiProperty({ example: 'success' })
-  result: string;
+  result: 'success' | 'fail';
 
   @ApiProperty({ example: 120000 })
   balance: number;
@@ -32,7 +32,7 @@ export class CashChargeResponseDto {
 
 export class PerformanceSeatPaymentResponseDto {
   @ApiProperty({ example: 'success' })
-  result: string;
+  result: 'success' | 'fail';
 
   @ApiProperty({ example: '123e4567-e89b-12d3-a456-426614174000' })
   performance_seat_id: string;
