@@ -8,20 +8,21 @@ import {
   CashBalanceRepository,
   REPOSITORY_TOKEN as CASH_BALANCE_REPOSITORY_TOKEN,
 } from 'src/domain/payment/repositories/cash-balance.repository';
-import { CashBalance } from 'src/domain/payment/model/cash-balance.entity';
+import { CashBalance } from 'src/domain/payment/model/cash-balance.model';
 import {
   PaymentHistoryRepository,
   REPOSITORY_TOKEN as PAYMENT_HISTORY_REPOSITORY_TOKEN,
 } from 'src/domain/payment/repositories/payment-history.repository';
-import { PaymentHistory } from 'src/domain/payment/model/payment-history.entity';
+import { PaymentHistory } from 'src/domain/payment/model/payment-history.model';
 import {
   REPOSITORY_TOKEN as USERS_REPOSITORY_TOKEN,
   UsersRepository,
 } from 'src/domain/auth/repositories/users.repository';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
+import { UserCashBalance } from '../types';
 
 @Injectable()
-export class GetCashUseCase implements UseCase<CashBalance> {
+export class GetCashBalanceUseCase implements UseCase<UserCashBalance> {
   constructor(
     @Inject(USERS_REPOSITORY_TOKEN)
     private usersRepository: UsersRepository<User>,
@@ -33,7 +34,27 @@ export class GetCashUseCase implements UseCase<CashBalance> {
     private dataAccessor: DataAccessor,
   ) {}
 
-  async execute(): Promise<CashBalance> {
-    return this.cashBalanceRepository.findOne();
+  async execute(userId: string): Promise<UserCashBalance> {
+    let queryRunner = null;
+
+    try {
+      queryRunner = await this.dataAccessor.connect();
+
+      const cashBalance = await this.cashBalanceRepository.findOne(
+        queryRunner,
+        {
+          userId,
+        },
+      );
+
+      return {
+        userId,
+        balance: cashBalance.balance,
+      };
+    } catch (error) {
+      throw error;
+    } finally {
+      await this.dataAccessor.releaseQueryRunner(queryRunner);
+    }
   }
 }

@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { EntityManager, QueryRunner } from 'typeorm';
+import {
+  EntityManager,
+  FindOneOptions,
+  FindOptionsOrderValue,
+  QueryRunner,
+} from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { IsolationLevel } from 'typeorm/driver/types/IsolationLevel';
 import { DataAccessor } from 'src/domain/base/data-accessor.interface';
@@ -34,20 +39,5 @@ export class TypeORMDataAccessor implements DataAccessor {
   }
 }
 
-export type LockOption =
-  | {
-      mode: 'optimistic';
-      version: number | Date;
-    }
-  | {
-      mode:
-        | 'pessimistic_read'
-        | 'pessimistic_write'
-        | 'dirty_read'
-        | 'pessimistic_partial_write'
-        | 'pessimistic_write_or_fail'
-        | 'for_no_key_update'
-        | 'for_key_share';
-      tables?: string[];
-      onLocked?: 'nowait' | 'skip_locked';
-    };
+export type LockOption = FindOneOptions['lock'];
+export type FindSortOrder = FindOptionsOrderValue;

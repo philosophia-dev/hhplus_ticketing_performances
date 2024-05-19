@@ -56,16 +56,16 @@ export class ReservationController {
     schema: {
       example: {
         title: '공연 제목',
-        ticketing_start_date: '2024-04-15T00:00:00.000Z',
+        ticketingStartDate: '2024-04-15T00:00:00.000Z',
         stage: {
           name: '공연장 이름',
           location: '공연장 위치',
         },
-        performance_staging_date: [
+        performanceStagingDate: [
           {
             id: 1,
             staging_date: '2024-05-01T00:00:00.000Z',
-            reserveable_seats_count: 10,
+            reserveableSeatsCount: 10,
           },
         ],
       },
@@ -78,9 +78,9 @@ export class ReservationController {
     schema: {
       example: {
         message: 'Please wait for your order to arrive.',
-        queue_data: {
+        queueData: {
           id: '{UUID}',
-          issued_timestamp: 1570543163783,
+          issuedTimestamp: 1570543163783,
           rank: 10,
         },
         statusCode: 202,
@@ -112,16 +112,16 @@ export class ReservationController {
   async getPerformances(@Headers() headers: Record<string, string>) {
     const MOCK_DATA = {
       title: '공연 제목',
-      ticketing_start_date: '2024-04-15T00:00:00.000Z',
+      ticketingStartDate: '2024-04-15T00:00:00.000Z',
       stage: {
         name: '공연장 이름',
         location: '공연장 위치',
       },
-      performance_staging_date: [
+      performanceStagingDate: [
         {
           id: 1,
-          staging_date: '2024-05-01T00:00:00.000Z',
-          reserveable_seats_count: 10,
+          stagingDate: '2024-05-01T00:00:00.000Z',
+          reserveableSeatsCount: 10,
         },
       ],
     };
@@ -156,9 +156,9 @@ export class ReservationController {
       example: [
         {
           id: '123e4567-e89b-12d3-a456-426614174000',
-          seat_number: '1',
+          seatNumber: '1',
           price: 70000,
-          reservation_status: 'AVAILABLE',
+          reservationStatus: 'AVAILABLE',
         },
       ],
     },
@@ -170,9 +170,9 @@ export class ReservationController {
     schema: {
       example: {
         message: 'Please wait for your order to arrive.',
-        queue_data: {
+        queueData: {
           id: '{UUID}',
-          issued_timestamp: 1570543163783,
+          issuedTimestamp: 1570543163783,
           rank: 10,
         },
         statusCode: 202,
@@ -209,9 +209,9 @@ export class ReservationController {
     const MOCK_DATA = [
       {
         id: 1,
-        seat_number: '1',
+        seatNumber: '1',
         price: 70000,
-        reservation_status: 'AVAILABLE',
+        reservationStatus: 'AVAILABLE',
       },
     ];
     return MOCK_DATA;
@@ -244,9 +244,9 @@ export class ReservationController {
       example: {
         result: 'success',
         data: {
-          seat_number: '1',
+          seatNumber: '1',
           price: 70000,
-          reservation_status: 'TEMPORARY_RESERVED',
+          reservationStatus: 'TEMPORARY_RESERVED',
         },
       },
     },
@@ -258,9 +258,9 @@ export class ReservationController {
     schema: {
       example: {
         message: 'Please wait for your order to arrive.',
-        queue_data: {
+        queueData: {
           id: '{UUID}',
-          issued_timestamp: 1570543163783,
+          issuedTimestamp: 1570543163783,
           rank: 10,
         },
         statusCode: 202,
@@ -291,15 +291,15 @@ export class ReservationController {
   })
   @Patch('/take_performance_seat')
   async takePerformanceSeat(
-    @Body(ValidationPipe) body: { performance_seat_id: string },
+    @Body(ValidationPipe) body: { performanceSeatId: string },
     @Headers() headers: Record<string, string>,
   ) {
     const MOCK_DATA = {
       result: 'success',
       data: {
-        seat_number: '1',
+        seatNumber: '1',
         price: 70000,
-        reservation_status: 'TEMPORARY_RESERVED',
+        reservationStatus: 'TEMPORARY_RESERVED',
       },
     };
     return MOCK_DATA;
@@ -321,9 +321,9 @@ export class ReservationController {
     status: HttpStatus.OK,
     type: Array<
       PerformanceDto & {
-        performance_staging_date: Omit<
-          PerformanceDto['performance_staging_date'],
-          'reserveable_seats_count'
+        performanceStagingDate: Omit<
+          PerformanceDto['performanceStagingDate'],
+          'reserveableSeatsCount'
         > & { seat: SeatDto[] };
       }
     >,
@@ -332,21 +332,21 @@ export class ReservationController {
       example: [
         {
           title: '공연 제목',
-          ticketing_start_date: '2024-04-15T00:00:00.000Z',
+          ticketingStartDate: '2024-04-15T00:00:00.000Z',
           stage: {
             name: '공연장 이름',
             location: '공연장 위치',
           },
-          performance_staging_date: [
+          performanceStagingDate: [
             {
               id: 1,
-              staging_date: '2024-05-01T00:00:00.000Z',
+              stagingDate: '2024-05-01T00:00:00.000Z',
               seat: [
                 {
                   id: 1,
-                  seat_number: '1',
+                  seatNumber: '1',
                   price: 70000,
-                  reservation_status: 'TEMPORARY_RESERVED',
+                  reservationStatus: 'TEMPORARY_RESERVED',
                 },
               ],
             },
@@ -383,20 +383,20 @@ export class ReservationController {
   ) {
     const MOCK_DATA = {
       title: '공연 제목',
-      ticketing_start_date: '2024-04-15T00:00:00.000Z',
+      ticketingStartDate: '2024-04-15T00:00:00.000Z',
       stage: {
         name: '공연장 이름',
         location: '공연장 위치',
       },
-      performance_staging_date: [
+      performanceStagingDate: [
         {
           id: '123e4567-e89b-12d3-a456-426614174000',
-          staging_date: '2024-05-01T00:00:00.000Z',
+          stagingDate: '2024-05-01T00:00:00.000Z',
           seat: {
             id: '123e4567-e89b-12d3-a456-426614174000',
-            seat_number: '1',
+            seatNumber: '1',
             price: 70000,
-            reservation_status: 'TEMPORARY_RESERVED',
+            reservationStatus: 'TEMPORARY_RESERVED',
           },
         },
       ],

@@ -1,4 +1,4 @@
-import { Stage } from './stage.entity';
+import { Stage } from './stage.model';
 
 export interface Performance {
   id: string;

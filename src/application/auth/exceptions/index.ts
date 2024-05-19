@@ -1,2 +1,2 @@
-export { PasswordDontMatchError } from './PasswordDontMatchError';
+export { UnauthorizedError } from './UnauthorizedError';
 export { UserNotFoundError } from './UserNotFoundError';

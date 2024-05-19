@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ChargeCashUseCase } from 'src/application/payment/use-cases/charge-cash.use-case';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
 import {
   REPOSITORY_TOKEN as USERS_REPOSITORY_TOKEN,
   UsersRepository,
@@ -17,14 +17,14 @@ import {
   PaymentHistoryRepository,
   REPOSITORY_TOKEN as PAYMENT_HISTORY_REPOSITORY_TOKEN,
 } from 'src/domain/payment/repositories/payment-history.repository';
-import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.entity';
-import { Performance } from 'src/domain/reservation/model/performance.entity';
-import { Stage } from 'src/domain/reservation/model/stage.entity';
+import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.model';
+import { Performance } from 'src/domain/reservation/model/performance.model';
+import { Stage } from 'src/domain/reservation/model/stage.model';
 import { CashBalance } from 'src/domain/payment/model/cash-balance.entity';
 import {
   PerformanceSeat,
   ReservationStatus,
-} from 'src/domain/reservation/model/performance-seat.entity';
+} from 'src/domain/reservation/model/performance-seat.model';
 import { PaymentHistory } from 'src/domain/payment/model/payment-history.entity';
 
 describe('ChargeCashUseCase', () => {

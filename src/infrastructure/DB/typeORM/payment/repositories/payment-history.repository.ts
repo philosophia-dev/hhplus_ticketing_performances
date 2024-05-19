@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { EntityManager, QueryRunner } from 'typeorm';
 import { PaymentHistoryTypeORM } from '../model/payment-history.entity';
 import { PaymentHistoryRepository } from 'src/domain/payment/repositories/payment-history.repository';
+import { FindSortOrder, LockOption } from '../../typeORMDataAccessor';
 
 @Injectable()
 export class PaymentHistoryRepositoryTypeORM
@@ -22,17 +23,36 @@ export class PaymentHistoryRepositoryTypeORM
   findAll(
     queryRunner: QueryRunner,
     filter?: Partial<PaymentHistoryTypeORM>,
+    sortMethod?: { [P in keyof PaymentHistoryTypeORM]?: FindSortOrder },
+    lockOption?: LockOption,
   ): Promise<PaymentHistoryTypeORM[]> {
     return queryRunner.manager.find(PaymentHistoryTypeORM, {
+      lock: lockOption,
       where: filter,
+      order: sortMethod,
     });
   }
 
   findOne(
     queryRunner: QueryRunner,
     filter: Partial<PaymentHistoryTypeORM>,
+    sortMethod?: { [P in keyof PaymentHistoryTypeORM]?: FindSortOrder },
+    lockOption?: LockOption,
   ): Promise<PaymentHistoryTypeORM> {
     return queryRunner.manager.findOne(PaymentHistoryTypeORM, {
+      lock: lockOption,
+      where: filter,
+      order: sortMethod,
+    });
+  }
+
+  count(
+    queryRunner: QueryRunner,
+    filter: Partial<PaymentHistoryTypeORM>,
+    lockOption?: LockOption,
+  ): Promise<number> {
+    return queryRunner.manager.count(PaymentHistoryTypeORM, {
+      lock: lockOption,
       where: filter,
     });
   }

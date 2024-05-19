@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GetPerformanceSeatsUseCase } from 'src/application/reservation/use-cases/get-performance-seats.use-case';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
 import {
   REPOSITORY_TOKEN as USERS_REPOSITORY_TOKEN,
   UsersRepository,
@@ -12,10 +12,10 @@ import {
 import {
   PerformanceSeat,
   ReservationStatus,
-} from 'src/domain/reservation/model/performance-seat.entity';
-import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.entity';
-import { Performance } from 'src/domain/reservation/model/performance.entity';
-import { Stage } from 'src/domain/reservation/model/stage.entity';
+} from 'src/domain/reservation/model/performance-seat.model';
+import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.model';
+import { Performance } from 'src/domain/reservation/model/performance.model';
+import { Stage } from 'src/domain/reservation/model/stage.model';
 import {
   REPOSITORY_TOKEN as PERFORMANCE_SEATS_REPOSITORY_TOKEN,
   PerformanceSeatsRepository,
@@ -123,14 +123,10 @@ describe('GetPerformanceSeatsUseCase', () => {
   });
 
   describe('excute', () => {
-    test('유효한 유저가 요청했으며, performanceStagingDateId가 유효하고, 해당하는 performanceStagingDateId의 좌석 중 예매 가능한 좌석이 남아있을 경우 좌석 정보 반환', async () => {});
-
-    test('유저가 존재하지 않을 경우 UserNotFoundError 발생', async () => {});
+    test('performanceStagingDateId가 유효하고, 해당하는 performanceStagingDateId의 좌석 중 예매 가능한 좌석이 남아있을 경우 좌석 정보 반환', async () => {});
 
     test('performanceStagingDateId가 유효하지만 해당하는 performanceStagingDateId의 공연 티켓팅 시작 일시에 아직 도달하지 않았을 경우 TicketingNotStartError 발생', async () => {});
 
-    test('performanceStagingDateId가 유효하지만 해당하는 performanceStagingDateId의 좌석 중 예매 가능한 좌석이 없을 경우 SoldOutAllSeatsError 발생', async () => {});
-
-    test('performanceStagingDateId가 유효하지 않을 시 IdNotFoundError 발생', async () => {});
+    test('performanceStagingDateId가 유효하지 않을 시 PerformanceScheduleNotFoundError 발생', async () => {});
   });
 });

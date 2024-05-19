@@ -49,10 +49,10 @@ export class QueueController {
     schema: {
       example: {
         id: '{USER_QUEUE_TOKEN}',
-        requested_endpoint: '/endpoint',
-        issued_timestamp: 1570543163783,
-        active_timestamp: 1570543213783,
-        expire_timestamp: 1570543263783,
+        requestedEndpoint: '/endpoint',
+        issuedTimestamp: 1570543163783,
+        activeTimestamp: 1570543213783,
+        expireTimestamp: 1570543263783,
         rank: 0,
       },
     },
@@ -70,14 +70,14 @@ export class QueueController {
   })
   async enqueue(
     @Headers('authorization') authorization: string,
-    @Body(ValidationPipe) body: { request_endpoint: string },
+    @Body(ValidationPipe) body: { requestEndpoint: string },
   ) {
     const MOCK_DATA = {
       id: '{USER_QUEUE_TOKEN}',
       requested_endpoint: '/endpoint',
-      issued_timestamp: 1570543163783,
-      active_timestamp: 1570543213783,
-      expire_timestamp: 1570543263783,
+      issuedTimestamp: 1570543163783,
+      activeTimestamp: 1570543213783,
+      expireTimestamp: 1570543263783,
       rank: 0,
     };
     return MOCK_DATA;
@@ -108,10 +108,10 @@ export class QueueController {
     schema: {
       example: {
         id: '{USER_QUEUE_TOKEN}',
-        requested_endpoint: '/endpoint',
-        issued_timestamp: 1570543163783,
-        active_timestamp: 1570543213783,
-        expire_timestamp: 1570543263783,
+        requestedEndpoint: '/endpoint',
+        issuedTimestamp: 1570543163783,
+        activeTimestamp: 1570543213783,
+        expireTimestamp: 1570543263783,
         rank: 0,
       },
     },
@@ -130,10 +130,10 @@ export class QueueController {
   async getQueueItem(@Headers() headers: Record<string, string>) {
     const MOCK_DATA = {
       id: '{USER_QUEUE_TOKEN}',
-      requested_endpoint: '/endpoint',
-      issued_timestamp: 1570543163783,
-      active_timestamp: 1570543213783,
-      expire_timestamp: 1570543263783,
+      requestedEndpoint: '/endpoint',
+      issuedTimestamp: 1570543163783,
+      activeTimestamp: 1570543213783,
+      expireTimestamp: 1570543263783,
       rank: 0,
     };
     return MOCK_DATA;

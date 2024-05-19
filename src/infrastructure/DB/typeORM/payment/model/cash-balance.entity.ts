@@ -1,4 +1,4 @@
-import { CashBalance } from 'src/domain/payment/model/cash-balance.entity';
+import { CashBalance } from 'src/domain/payment/model/cash-balance.model';
 import {
   Column,
   Entity,

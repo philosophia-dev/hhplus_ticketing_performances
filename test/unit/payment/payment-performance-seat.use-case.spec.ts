@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
 import {
   REPOSITORY_TOKEN as USERS_REPOSITORY_TOKEN,
   UsersRepository,
@@ -16,15 +16,15 @@ import {
   PaymentHistoryRepository,
   REPOSITORY_TOKEN as PAYMENT_HISTORY_REPOSITORY_TOKEN,
 } from 'src/domain/payment/repositories/payment-history.repository';
-import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.entity';
-import { Performance } from 'src/domain/reservation/model/performance.entity';
-import { Stage } from 'src/domain/reservation/model/stage.entity';
-import { CashBalance } from 'src/domain/payment/model/cash-balance.entity';
+import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.model';
+import { Performance } from 'src/domain/reservation/model/performance.model';
+import { Stage } from 'src/domain/reservation/model/stage.model';
+import { CashBalance } from 'src/domain/payment/model/cash-balance.model';
 import {
   PerformanceSeat,
   ReservationStatus,
-} from 'src/domain/reservation/model/performance-seat.entity';
-import { PaymentHistory } from 'src/domain/payment/model/payment-history.entity';
+} from 'src/domain/reservation/model/performance-seat.model';
+import { PaymentHistory } from 'src/domain/payment/model/payment-history.model';
 import { PaymentPerformanceSeatUseCase } from 'src/application/payment/use-cases/payment-performance-seat.use-case';
 import {
   REPOSITORY_TOKEN as PERFORMANCE_SEATS_REPOSITORY_TOKEN,
@@ -151,10 +151,10 @@ describe('PaymentPerformanceSeatUseCase', () => {
   describe('excute', () => {
     test('유효한 유저가 요청했으며, 좌석 결제 금액을 소지하고 있고, 결제 요청한 좌석이 유저 본인이 선점한 좌석일 경우 좌석 결제 처리 후 결과 반환', async () => {});
 
-    test('유저가 존재하지 않을 경우 UserNotFoundError 발생', async () => {});
+    test('결제 요청한 좌석이 유저 본인이 선점한 좌석이 아닐 경우 SeatNotTakenByUserError 발생', async () => {});
 
-    test('유저가 존재하나 결제 요청한 좌석이 유저 본인이 선점한 좌석이 아닐 경우 SeatNotTakenByUserError 발생', async () => {});
+    test('결제 요청한 좌석이 이미 유저 본인에 의해 결제된 좌석일 경우 SeatAlreadyPaymentError 발생', async () => {});
 
-    test('유저가 존재하고, 결제 요청한 좌석이 유저 본인이 선점한 좌석이나 잔액이 부족할 경우 InsufficientBalanceError 발생', async () => {});
+    test('결제 요청한 좌석이 유저 본인이 선점한 좌석이나 잔액이 부족할 경우 InsufficientBalanceError 발생', async () => {});
   });
 });

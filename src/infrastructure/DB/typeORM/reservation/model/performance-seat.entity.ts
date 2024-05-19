@@ -9,7 +9,7 @@ import { PerformanceStagingDateTypeORM } from './performance-staging-date.entity
 import {
   PerformanceSeat,
   ReservationStatus,
-} from 'src/domain/reservation/model/performance-seat.entity';
+} from 'src/domain/reservation/model/performance-seat.model';
 import { UserTypeORM } from '../../auth/model/user.entity';
 
 @Entity('performance_seats')

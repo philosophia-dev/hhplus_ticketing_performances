@@ -1,4 +1,4 @@
-import { Performance } from './performance.entity';
+import { Performance } from './performance.model';
 
 export interface PerformanceStagingDate {
   id: string;

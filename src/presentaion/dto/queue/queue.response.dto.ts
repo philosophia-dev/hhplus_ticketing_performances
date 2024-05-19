@@ -5,16 +5,16 @@ export class QueueResponseDto {
   id: string;
 
   @ApiProperty({ example: '/endpoint' })
-  requested_endpoint: string;
+  requestedEndpoint: string;
 
   @ApiProperty({ example: 1570543163783 })
-  issued_timestamp: number;
+  issuedTimestamp: number;
 
   @ApiProperty({ example: 1570543163783 })
-  active_timestamp: number;
+  activeTimestamp: number;
 
   @ApiProperty({ example: 1570543163783 })
-  expire_timestamp: number;
+  expireTimestamp: number;
 
   @ApiProperty({ example: 0 })
   rank: number;

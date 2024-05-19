@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
 import {
   REPOSITORY_TOKEN as USERS_REPOSITORY_TOKEN,
   UsersRepository,
@@ -12,11 +12,11 @@ import {
   DataAccessor,
   TOKEN as DATA_ACCESSOR_TOKEN,
 } from 'src/domain/base/data-accessor.interface';
-import { CashBalance } from 'src/domain/payment/model/cash-balance.entity';
-import { GetCashUseCase } from 'src/application/payment/use-cases/get-cash-balance.use-case';
+import { GetCashBalanceUseCase } from 'src/application/payment/use-cases/get-cash-balance.use-case';
+import { CashBalance } from 'src/domain/payment/model/cash-balance.model';
 
 describe('GetCashUseCase', () => {
-  let useCase: GetCashUseCase;
+  let useCase: GetCashBalanceUseCase;
   let mockUsersRepository: jest.Mocked<UsersRepository<User>>;
   let mockCashBalanceRepository: jest.Mocked<
     CashBalanceRepository<CashBalance>
@@ -43,7 +43,7 @@ describe('GetCashUseCase', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        GetCashUseCase,
+        GetCashBalanceUseCase,
         {
           provide: USERS_REPOSITORY_TOKEN,
           useValue: repositoryMockFunc,
@@ -65,15 +65,13 @@ describe('GetCashUseCase', () => {
       ],
     }).compile();
 
-    useCase = module.get<GetCashUseCase>(GetCashUseCase);
+    useCase = module.get<GetCashBalanceUseCase>(GetCashBalanceUseCase);
     mockUsersRepository = module.get(USERS_REPOSITORY_TOKEN);
     mockCashBalanceRepository = module.get(CASH_BALANCE_REPOSITORY_TOKEN);
     mockDataAccessor = module.get(DATA_ACCESSOR_TOKEN);
   });
 
   describe('excute', () => {
-    test('유효한 유저가 요청한 경우 현재 잔액 반환', async () => {});
-
-    test('유저가 존재하지 않을 경우 UserNotFoundError 발생', async () => {});
+    test('해당 유저의 현재 잔액 반환', async () => {});
   });
 });

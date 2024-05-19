@@ -158,16 +158,16 @@ export class PaymentController {
     schema: {
       example: [
         {
-          date_created: '2024-04-08T00:00:00.000Z',
+          dateCreated: '2024-04-08T00:00:00.000Z',
           amount: 20000,
           cause: 'CHARGED_BY_USER',
-          performance_seat_id: null,
+          performanceSeatId: null,
         },
         {
-          date_created: '2024-04-08T00:00:00.000Z',
+          dateCreated: '2024-04-08T00:00:00.000Z',
           amount: -100000,
           cause: 'PEYMENT_PERFORMANCE_SEAT',
-          performance_seat_id: '123e4567-e89b-12d3-a456-426614174000',
+          performanceSeatId: '123e4567-e89b-12d3-a456-426614174000',
         },
       ],
     },
@@ -198,16 +198,16 @@ export class PaymentController {
   async getPaymentHistory(@Headers('authorization') authorization: string) {
     const MOCK_DATA = [
       {
-        date_created: '2024-04-08T00:00:00.000Z',
+        dateCreated: '2024-04-08T00:00:00.000Z',
         amount: 20000,
         cause: 'CHARGED_BY_USER',
-        performance_seat_id: null,
+        performanceSeatId: null,
       },
       {
-        date_created: '2024-04-08T00:00:00.000Z',
+        dateCreated: '2024-04-08T00:00:00.000Z',
         amount: -100000,
         cause: 'PEYMENT_PERFORMANCE_SEAT',
-        performance_seat_id: 1,
+        performanceSeatId: 1,
       },
     ];
     return MOCK_DATA;
@@ -232,7 +232,7 @@ export class PaymentController {
     schema: {
       example: {
         result: 'success',
-        performance_seat_id: 1,
+        performanceSeatId: 1,
       },
     },
   })
@@ -261,11 +261,11 @@ export class PaymentController {
   @Post('/payment_performance_seat')
   async paymentPerformanceSeat(
     @Headers('authorization') authorization: string,
-    @Body(ValidationPipe) body: { performance_seat_id: string },
+    @Body(ValidationPipe) body: { performanceSeatId: string },
   ) {
     const MOCK_DATA = {
       result: 'success',
-      performance_seat_id: '123e4567-e89b-12d3-a456-426614174000',
+      performanceSeatId: '123e4567-e89b-12d3-a456-426614174000',
     };
     return MOCK_DATA;
   }

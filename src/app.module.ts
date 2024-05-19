@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { ControllersModule } from './presentaion/restApi/controllers/controllers.module';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ControllersModule } from './presentaion/restApi/controllers/controllers
           // entities: , //엔티티
           synchronize: false,
           logging: false,
+          namingStrategy: new SnakeNamingStrategy(),
         } as TypeOrmModuleOptions;
       },
     }),

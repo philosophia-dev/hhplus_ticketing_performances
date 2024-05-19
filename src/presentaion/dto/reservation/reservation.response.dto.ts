@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ReservationStatus } from 'src/domain/model/performance-seat.entity';
+import { ReservationStatus } from 'src/domain/reservation/model/performance-seat.model';
 
 class StageDto {
   @ApiProperty({ example: 'Grand Theater' })
@@ -14,10 +14,10 @@ class PerformanceDateDto {
   id: string;
 
   @ApiProperty({ example: '2024-05-01T00:00:00.000Z' })
-  staging_date: Date;
+  stagingDate: Date;
 
   @ApiProperty({ example: 10 })
-  reserveable_seats_count: number;
+  reserveableSeatsCount: number;
 }
 
 export class PerformanceDto {
@@ -25,13 +25,13 @@ export class PerformanceDto {
   title: string;
 
   @ApiProperty({ example: '2024-04-15T00:00:00.000Z' })
-  ticketing_start_date: Date;
+  ticketingStartDate: Date;
 
   @ApiProperty({ type: StageDto })
   stage: StageDto;
 
   @ApiProperty({ type: [PerformanceDateDto] })
-  performance_staging_date: PerformanceDateDto[];
+  performanceStagingDate: PerformanceDateDto[];
 }
 
 export class SeatDto {
@@ -39,13 +39,13 @@ export class SeatDto {
   id: string;
 
   @ApiProperty({ example: '1' })
-  seat_number: string;
+  seatNumber: string;
 
   @ApiProperty({ example: 70000 })
   price: number;
 
   @ApiProperty({ example: 'TEMPORARY_RESERVED' })
-  reservation_status: ReservationStatus;
+  reservationStatus: ReservationStatus;
 }
 
 export class TakeSeatResponseDto {

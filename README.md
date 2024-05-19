@@ -70,11 +70,11 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 
 ##### Parameters
 
-> | name            | in   | type     | data type | description |
-> | --------------- | ---- | -------- | --------- | ----------- |
-> | body            | body | required | object    |             |
-> | » email_address | body | required | string    |             |
-> | » password      | body | required | string    |             |
+> | name           | in   | type     | data type | description |
+> | -------------- | ---- | -------- | --------- | ----------- |
+> | body           | body | required | object    |             |
+> | » emailAddress | body | required | string    |             |
+> | » password     | body | required | string    |             |
 
 ##### Responses
 
@@ -115,10 +115,10 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 
 ##### Parameters
 
-> | name               | in   | type     | data type | description     |
-> | ------------------ | ---- | -------- | --------- | --------------- |
-> | body               | body | required | object    |                 |
-> | » request_endpoint | body | required | string    | 요청할 endpoint |
+> | name              | in   | type     | data type | description     |
+> | ----------------- | ---- | -------- | --------- | --------------- |
+> | body              | body | required | object    |                 |
+> | » requestEndpoint | body | required | string    | 요청할 endpoint |
 
 ##### Responses
 
@@ -127,10 +127,10 @@ NestJS 서버 실행 후 `/api`로 접속하면 Swagger UI로 API 문서를 확�
 > ```json
 > {
 >   "id": "{USER_QUEUE_TOKEN}",
->   "requested_endpoint": "/endpoint",
->   "issued_timestamp": 1570543163783,
->   "active_timestamp": 1570543213783,
->   "expire_timestamp": 1570543263783,
+>   "requestedEndpoint": "/endpoint",
+>   "issuedTimestamp": 1570543163783,
+>   "activeTimestamp": 1570543213783,
+>   "expireTimestamp": 1570543263783,
 >   "rank": 0
 > }
 > ```
@@ -174,10 +174,10 @@ None
 > ```json
 > {
 >   "id": "{USER_QUEUE_TOKEN}",
->   "requested_endpoint": "/endpoint",
->   "issued_timestamp": 1570543163783,
->   "active_timestamp": 1570543213783,
->   "expire_timestamp": 1570543263783,
+>   "requestedEndpoint": "/endpoint",
+>   "issuedTimestamp": 1570543163783,
+>   "activeTimestamp": 1570543213783,
+>   "expireTimestamp": 1570543263783,
 >   "rank": 0
 > }
 > ```
@@ -264,17 +264,19 @@ None
 >
 > ```json
 > {
+>   "id": "123e4567-e89b-12d3-a456-426614174000",
 >   "title": "공연 제목",
->   "ticketing_start_date": "2024-04-15T00:00:00.000Z",
+>   "ticketingStartDate": "2024-04-15T00:00:00.000Z",
 >   "stage": {
+>     "id": "123e4567-e89b-12d3-a456-426614174000",
 >     "name": "공연장 이름",
 >     "location": "공연장 위치"
 >   },
->   "performance_staging_date": [
+>   "performanceStagingDate": [
 >     {
 >       "id": "123e4567-e89b-12d3-a456-426614174000",
->       "staging_date": "2024-05-01T00:00:00.000Z",
->       "reserveable_seats_count": 10
+>       "stagingDate": "2024-05-01T00:00:00.000Z",
+>       "reserveableSeatsCount": 10
 >     }
 >   ]
 > }
@@ -287,9 +289,9 @@ None
 > ```json
 > {
 >   "message": "Please wait for your order to arrive.",
->   "queue_data": {
+>   "queueData": {
 >     "id": "{UUID}",
->     "issued_timestamp": 1570543163783,
+>     "issuedTimestamp": 1570543163783,
 >     "rank": 10
 >   },
 >   "statusCode": 202
@@ -325,7 +327,7 @@ None
 <details>
 <summary><code>GET</code> <code><b>/reservation/performance_seats/{performance_staging_date_id}</b></code></summary>
 
-특정 공연 일정의 좌석 목록을 조회한다. 각 좌석의 예매 가능 상태를 포함한다.
+특정 공연 일정의 좌석 목록을 조회한다. 예매 가능한 좌석 수와 각 좌석의 예매 가능 상태를 포함한다.
 
 ##### Headers
 
@@ -336,9 +338,9 @@ None
 
 ##### Parameters
 
-> | name                        | in   | type     | data type | description              |
-> | --------------------------- | ---- | -------- | --------- | ------------------------ |
-> | performance_staging_date_id | path | required | string    | 특정 공연 일정의 고유 ID |
+> | name                     | in   | type     | data type | description              |
+> | ------------------------ | ---- | -------- | --------- | ------------------------ |
+> | performanceStagingDateId | path | required | string    | 특정 공연 일정의 고유 ID |
 
 ##### Responses
 
@@ -353,14 +355,17 @@ None
 >   - "UNAVAILABLE" : 이용 불가 좌석
 >
 > ```json
-> [
->   {
->     "id": "123e4567-e89b-12d3-a456-426614174000",
->     "seat_number": "1",
->     "price": 70000,
->     "reservation_status": "AVAILABLE"
->   }
-> ]
+> {
+>   "seats": [
+>     {
+>       "id": "123e4567-e89b-12d3-a456-426614174000",
+>       "seatNumber": "1",
+>       "price": 70000,
+>       "reservationStatus": "AVAILABLE"
+>     }
+>   ],
+>   "reserveableSeatsCount": 1
+> }
 > ```
 >
 > Status Code **202**
@@ -370,7 +375,7 @@ None
 > ```json
 > {
 >   "message": "Please wait for your order to arrive.",
->   "queue_data": {
+>   "queueData": {
 >     "id": "{UUID}",
 >     "rank": 10
 >   },
@@ -418,10 +423,10 @@ None
 
 ##### Parameters
 
-> | name                  | in   | type     | data type | description                          |
-> | --------------------- | ---- | -------- | --------- | ------------------------------------ |
-> | body                  | body | required | object    |                                      |
-> | » performance_seat_id | body | required | string    | 특정 공연 일정의 특정 좌석의 고유 ID |
+> | name                | in   | type     | data type     | description                          |
+> | ------------------- | ---- | -------- | ------------- | ------------------------------------ |
+> | body                | body | required | object        |                                      |
+> | » performanceSeatId | body | required | Array<string> | 특정 공연 일정의 특정 좌석의 고유 ID |
 
 ##### Responses
 
@@ -431,11 +436,14 @@ None
 > ```json
 > {
 >   "result": "success",
->   "data": {
->     "seat_number": "1",
->     "price": 70000,
->     "reservation_status": "TEMPORARY_RESERVED"
->   }
+>   "seats": [
+>     {
+>       "id": "123e4567-e89b-12d3-a456-426614174000",
+>       "seatNumber": "1",
+>       "price": 70000,
+>       "reservationStatus": "TEMPORARY_RESERVED"
+>     }
+>   ]
 > }
 > ```
 >
@@ -446,7 +454,7 @@ None
 > ```json
 > {
 >   "message": "Please wait for your order to arrive.",
->   "queue_data": {
+>   "queueData": {
 >     "id": "{UUID}",
 >     "rank": 10
 >   },
@@ -504,22 +512,24 @@ None
 > ```json
 > [
 >   {
+>     "id": "123e4567-e89b-12d3-a456-426614174000",
 >     "title": "공연 제목",
->     "ticketing_start_date": "2024-04-15T00:00:00.000Z",
+>     "ticketingStartDate": "2024-04-15T00:00:00.000Z",
 >     "stage": {
+>       "id": "123e4567-e89b-12d3-a456-426614174000",
 >       "name": "공연장 이름",
 >       "location": "공연장 위치"
 >     },
->     "performance_staging_date": [
+>     "performanceStagingDate": [
 >       {
 >         "id": "123e4567-e89b-12d3-a456-426614174000",
->         "staging_date": "2024-05-01T00:00:00.000Z",
->         "seat": [
+>         "stagingDate": "2024-05-01T00:00:00.000Z",
+>         "seats": [
 >           {
 >             "id": "123e4567-e89b-12d3-a456-426614174000",
->             "seat_number": "1",
+>             "seatNumber": "1",
 >             "price": 70000,
->             "reservation_status": "TEMPORARY_RESERVED"
+>             "reservationStatus": "TEMPORARY_RESERVED"
 >           }
 >         ]
 >       }
@@ -683,16 +693,16 @@ None
 > ```json
 > [
 >   {
->     "date_created": "2024-04-08T00:00:00.000Z",
+>     "dateCreated": "2024-04-08T00:00:00.000Z",
 >     "amount": 20000,
 >     "cause": "CHARGED_BY_USER",
->     "performance_seat_id": null
+>     "performanceSeatId": null
 >   },
 >   {
->     "date_created": "2024-04-08T00:00:00.000Z",
+>     "dateCreated": "2024-04-08T00:00:00.000Z",
 >     "amount": -100000,
 >     "cause": "PEYMENT_PERFORMANCE_SEAT",
->     "performance_seat_id": "123e4567-e89b-12d3-a456-426614174000"
+>     "performanceSeatId": "123e4567-e89b-12d3-a456-426614174000"
 >   }
 > ]
 > ```
@@ -736,21 +746,28 @@ None
 
 ##### Parameters
 
-> | name                  | in   | type     | data type | description                          |
-> | --------------------- | ---- | -------- | --------- | ------------------------------------ |
-> | body                  | body | required | object    |                                      |
-> | » performance_seat_id | body | required | string    | 특정 공연 일정의 특정 좌석의 고유 ID |
+> | name                  | in   | type     | data type     | description                          |
+> | --------------------- | ---- | -------- | ------------- | ------------------------------------ |
+> | body                  | body | required | object        |                                      |
+> | » performance_seat_id | body | required | Array<string> | 특정 공연 일정의 특정 좌석의 고유 ID |
 
 ##### Responses
 
 > Status Code **201**
 >
-> 결제 결과와 결제한 좌석의 ID를 반환한다.
+> 결제 결과와 결제한 좌석의 데이터를 반환한다.
 >
 > ```json
 > {
 >   "result": "success",
->   "performance_seat_id": "123e4567-e89b-12d3-a456-426614174000"
+>   "seats": [
+>     {
+>       "id": "123e4567-e89b-12d3-a456-426614174000",
+>       "seatNumber": "1",
+>       "price": 70000,
+>       "reservationStatus": "TEMPORARY_RESERVED"
+>     }
+>   ]
 > }
 > ```
 >

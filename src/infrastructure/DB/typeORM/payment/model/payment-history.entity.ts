@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CashBalanceTypeORM } from './cash-balance.entity';
-import { PaymentHistory } from 'src/domain/payment/model/payment-history.entity';
+import { PaymentHistory } from 'src/domain/payment/model/payment-history.model';
 import { PerformanceSeatTypeORM } from '../../reservation/model/performance-seat.entity';
 
 @Entity('payment_history')

@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { EntityManager, QueryRunner } from 'typeorm';
 import { PerformancesRepository } from 'src/domain/reservation/repositories/performances.repository';
 import { PerformanceTypeORM } from '../model/performance.entity';
+import { FindSortOrder, LockOption } from '../../typeORMDataAccessor';
 
 @Injectable()
 export class PerformancesRepositoryTypeORM
@@ -21,19 +22,42 @@ export class PerformancesRepositoryTypeORM
 
   findAll(
     queryRunner: QueryRunner,
-    filter?: Partial<PerformanceTypeORM>,
+    filter?: Partial<PerformanceTypeORM>[],
+    sortMethod?: { [P in keyof PerformanceTypeORM]?: FindSortOrder },
+    lockOption?: LockOption,
   ): Promise<PerformanceTypeORM[]> {
-    return queryRunner.manager.find(PerformanceTypeORM, { where: filter });
+    return queryRunner.manager.find(PerformanceTypeORM, {
+      lock: lockOption,
+      where: filter,
+      order: sortMethod,
+    });
   }
 
   findOne(
     queryRunner: QueryRunner,
     filter: Partial<PerformanceTypeORM>,
+    sortMethod?: { [P in keyof PerformanceTypeORM]?: FindSortOrder },
+    lockOption?: LockOption,
   ): Promise<PerformanceTypeORM> {
-    return queryRunner.manager.findOne(PerformanceTypeORM, { where: filter });
+    return queryRunner.manager.findOne(PerformanceTypeORM, {
+      lock: lockOption,
+      where: filter,
+      order: sortMethod,
+    });
   }
 
-  async update(
+  count(
+    queryRunner: QueryRunner,
+    filter: Partial<PerformanceTypeORM>,
+    lockOption?: LockOption,
+  ): Promise<number> {
+    return queryRunner.manager.count(PerformanceTypeORM, {
+      lock: lockOption,
+      where: filter,
+    });
+  }
+
+  async updateOne(
     queryRunner: QueryRunner,
     id: string,
     data: Partial<PerformanceTypeORM>,
@@ -42,7 +66,23 @@ export class PerformancesRepositoryTypeORM
     return this.findOne(queryRunner, { id });
   }
 
-  async delete(queryRunner: QueryRunner, id: string): Promise<void> {
+  async updateMany(
+    queryRunner: QueryRunner,
+    ids: string[],
+    data: Partial<PerformanceTypeORM>,
+  ): Promise<PerformanceTypeORM[]> {
+    await queryRunner.manager.update(PerformanceTypeORM, ids, data);
+    return this.findAll(
+      queryRunner,
+      ids.map((x) => ({ id: x })),
+    );
+  }
+
+  async deleteOne(queryRunner: QueryRunner, id: string): Promise<void> {
     await queryRunner.manager.delete(PerformanceTypeORM, id);
+  }
+
+  async deleteMany(queryRunner: QueryRunner, ids: string[]): Promise<void> {
+    await queryRunner.manager.delete(PerformanceTypeORM, ids);
   }
 }

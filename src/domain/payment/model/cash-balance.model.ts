@@ -1,4 +1,4 @@
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
 
 export interface CashBalance {
   id: string;

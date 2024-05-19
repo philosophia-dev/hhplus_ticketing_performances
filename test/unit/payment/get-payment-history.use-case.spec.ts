@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
 import {
   REPOSITORY_TOKEN as USERS_REPOSITORY_TOKEN,
   UsersRepository,
@@ -12,8 +12,8 @@ import {
   PaymentHistoryRepository,
   REPOSITORY_TOKEN as PAYMENT_HISTORY_REPOSITORY_TOKEN,
 } from 'src/domain/payment/repositories/payment-history.repository';
-import { PaymentHistory } from 'src/domain/payment/model/payment-history.entity';
 import { GetPaymentHistoryUseCase } from 'src/application/payment/use-cases/get-payment-history.use-case';
+import { PaymentHistory } from 'src/domain/payment/model/payment-history.model';
 
 describe('GetPaymentHistoryUseCase', () => {
   let useCase: GetPaymentHistoryUseCase;
@@ -72,8 +72,6 @@ describe('GetPaymentHistoryUseCase', () => {
   });
 
   describe('excute', () => {
-    test('유효한 유저가 요청한 경우 입출금 내역 반환', async () => {});
-
-    test('유저가 존재하지 않을 경우 UserNotFoundError 발생', async () => {});
+    test('해당 유저의 입출금 내역 반환', async () => {});
   });
 });

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SignInUseCase } from 'src/application/auth/use-cases/sign-in.use-case';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
+
 import {
   REPOSITORY_TOKEN,
   UsersRepository,
@@ -61,6 +62,6 @@ describe('SignInUseCase', () => {
 
     test('emailAddress가 일치하는 유저가 존재하지 않을 시 UserNotFoundError 발생', async () => {});
 
-    test('emailAddress가 일치하는 유저는 존재하나 비밀번호가 일치하지 않을 시 UserNotFoundError 발생', async () => {});
+    test('emailAddress가 일치하는 유저는 존재하나 비밀번호가 일치하지 않을 시 UnauthorizedError 발생', async () => {});
   });
 });

@@ -5,5 +5,5 @@ export class EnqueueRequestDto {
     example: '/reservation/performaces',
     description: '요청할 endpoint',
   })
-  request_endpoint: string;
+  requestEndpoint: string;
 }

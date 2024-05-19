@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PerformanceTypeORM } from './performance.entity';
-import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.entity';
+import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.model';
 
 @Entity('performance_staging_date')
 export class PerformanceStagingDateTypeORM implements PerformanceStagingDate {

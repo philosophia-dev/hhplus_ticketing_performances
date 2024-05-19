@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GetPerformanceUseCase } from 'src/application/reservation/use-cases/get-performances.use-case';
-import { User } from 'src/domain/auth/model/user.entity';
+import { User } from 'src/domain/auth/model/user.model';
 import {
   REPOSITORY_TOKEN as USERS_REPOSITORY_TOKEN,
   UsersRepository,
@@ -12,10 +12,10 @@ import {
 import {
   PerformanceSeat,
   ReservationStatus,
-} from 'src/domain/reservation/model/performance-seat.entity';
-import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.entity';
-import { Performance } from 'src/domain/reservation/model/performance.entity';
-import { Stage } from 'src/domain/reservation/model/stage.entity';
+} from 'src/domain/reservation/model/performance-seat.model';
+import { PerformanceStagingDate } from 'src/domain/reservation/model/performance-staging-date.model';
+import { Performance } from 'src/domain/reservation/model/performance.model';
+import { Stage } from 'src/domain/reservation/model/stage.model';
 import {
   REPOSITORY_TOKEN as PERFORMANCES_REPOSITORY_TOKEN,
   PerformancesRepository,
@@ -119,8 +119,7 @@ describe('GetPerformanceUseCase', () => {
   });
 
   describe('excute', () => {
-    test('유효한 유저가 요청한 경우 공연 정보 반환', async () => {});
-
-    test('유저가 존재하지 않을 경우 UserNotFoundError 발생', async () => {});
+    // 유저 유효성 검증은 guard에서 처리
+    test('정상적으로 공연 정보 반환', async () => {});
   });
 });
